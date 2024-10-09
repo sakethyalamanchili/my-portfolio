@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import {
   Card,
@@ -5,10 +7,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface Filter {
   id: string;
@@ -37,114 +40,118 @@ const itemVariants = {
   },
 };
 
-const filtersPerPage = 4;
+const filtersPerPage = 6;
 
 export default function SnapchatFilters({
   filters,
   theme,
 }: SnapchatFiltersProps) {
   const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfLastFilter = currentPage * filtersPerPage;
+  const indexOfFirstFilter = indexOfLastFilter - filtersPerPage;
+  const currentFilters = filters.slice(indexOfFirstFilter, indexOfLastFilter);
   const totalPages = Math.ceil(filters.length / filtersPerPage);
 
-  const paginatedFilters = filters.slice(
-    (currentPage - 1) * filtersPerPage,
-    currentPage * filtersPerPage
-  );
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentPage}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2"
-        >
-          {paginatedFilters.map((filter) => (
-            <motion.div
-              key={filter.id}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {currentFilters.map((filter) => (
+          <motion.div
+            key={filter.id}
+            variants={itemVariants}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            <Card
+              className={`h-full flex flex-col justify-between ${
+                theme === "dark"
+                  ? "bg-[#21262D] border-[#30363D] hover:bg-[#2D333B]"
+                  : "bg-white border-[#E5E7EB] hover:bg-gray-50"
+              } transition-colors duration-200`}
             >
-              <Card
-                className={`h-full flex flex-col ${
-                  theme === "dark"
-                    ? "bg-[#21262D] border-[#30363D]"
-                    : "bg-white border-[#E5E7EB]"
-                }`}
-              >
-                <CardHeader>
-                  <CardTitle
-                    className={`text-lg ${
-                      theme === "dark" ? "text-white" : "text-[#1F2937]"
-                    }`}
+              <CardHeader>
+                <CardTitle
+                  className={`text-lg ${
+                    theme === "dark" ? "text-white" : "text-[#1F2937]"
+                  }`}
+                >
+                  {filter.name}
+                </CardTitle>
+                <CardDescription
+                  className={
+                    theme === "dark" ? "text-[#8B949E]" : "text-[#6B7280]"
+                  }
+                >
+                  {filter.views} views
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <motion.img
+                  src={filter.codeImage}
+                  alt={filter.name}
+                  className="w-full h-48 object-contain mb-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                />
+              </CardContent>
+              <CardFooter className="mt-auto p-3">
+                <Button
+                  variant="outline"
+                  asChild
+                  className={`w-full py-2 ${
+                    theme === "dark"
+                      ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                      : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+                  } transition-colors duration-200`}
+                >
+                  <a
+                    href={filter.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center"
                   >
-                    {filter.name}
-                  </CardTitle>
-                  <CardDescription
-                    className={
-                      theme === "dark" ? "text-[#8B949E]" : "text-[#6B7280]"
-                    }
-                  >
-                    {filter.views} views
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow flex flex-col justify-between">
-                  <motion.img
-                    src={filter.codeImage}
-                    alt={filter.name}
-                    className="w-full h-48 object-contain mb-4"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                  />
-                  <Button
-                    variant="outline"
-                    asChild
-                    className={
-                      theme === "dark"
-                        ? "bg-[#30363D] text-white hover:bg-[#3C444D] mt-auto"
-                        : "bg-white text-[#1F2937] hover:bg-[#F3F4F6] mt-auto"
-                    }
-                  >
-                    <a
-                      href={filter.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Try Filter <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-      </AnimatePresence>
-      <div className="flex justify-between items-center mt-6">
+                    Try Filter
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-8">
         <Button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}
-          variant="outline"
-          className={theme === "dark" ? "text-white" : "text-[#1F2937]"}
+          className={`mr-2 ${
+            theme === "dark"
+              ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+              : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+          } transition-colors duration-200`}
         >
-          <ChevronLeft className="mr-2 h-4 w-4" /> Previous
+          <ChevronLeft className="h-4 w-4 mr-2" /> Previous
         </Button>
-        <span className={theme === "dark" ? "text-white" : "text-[#1F2937]"}>
-          Page {currentPage} of {totalPages}
-        </span>
         <Button
-          onClick={() =>
-            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-          }
+          onClick={() => paginate(currentPage + 1)}
           disabled={currentPage === totalPages}
-          variant="outline"
-          className={theme === "dark" ? "text-white" : "text-[#1F2937]"}
+          className={`ml-2 ${
+            theme === "dark"
+              ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+              : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+          } transition-colors duration-200`}
         >
-          Next <ChevronRight className="ml-2 h-4 w-4" />
+          Next <ChevronRight className="h-4 w-4 ml-2" />
         </Button>
       </div>
     </div>

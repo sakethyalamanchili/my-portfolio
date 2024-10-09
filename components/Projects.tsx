@@ -1,10 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface ProjectsProps {
   theme: "light" | "dark";
@@ -122,16 +128,19 @@ const itemVariants = {
   },
 };
 
-const projectsPerPage = 4;
+const projectsPerPage = 6;
 
 export default function Projects({ theme }: ProjectsProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(projects.length / projectsPerPage);
 
-  const paginatedProjects = projects.slice(
-    (currentPage - 1) * projectsPerPage,
-    currentPage * projectsPerPage
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
   );
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <Card
@@ -145,71 +154,77 @@ export default function Projects({ theme }: ProjectsProps) {
         <CardTitle className="text-2xl font-bold">Projects</CardTitle>
       </CardHeader>
       <CardContent>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentPage}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="grid gap-6 sm:grid-cols-2"
-          >
-            {paginatedProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className={`p-4 rounded-lg ${
-                  theme === "dark" ? "bg-[#21262D]" : "bg-[#F3F4F6]"
-                }`}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {currentProjects.map((project, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <Card
+                className={`h-full flex flex-col justify-between ${
+                  theme === "dark"
+                    ? "bg-[#21262D] border-[#30363D] hover:bg-[#2D333B]"
+                    : "bg-white border-[#E5E7EB] hover:bg-gray-50"
+                } transition-colors duration-200`}
               >
-                <h3
-                  className={`text-lg font-semibold mb-2 ${
-                    theme === "dark" ? "text-white" : "text-[#1F2937]"
-                  }`}
-                >
-                  {project.title}
-                </h3>
-                <p
-                  className={`text-sm mb-2 ${
-                    theme === "dark" ? "text-[#C9D1D9]" : "text-[#4B5563]"
-                  }`}
-                >
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, idx) => (
-                    <motion.span
-                      key={idx}
-                      className={`text-xs px-2 py-1 rounded ${
-                        theme === "dark"
-                          ? "bg-[#30363D] text-[#8B949E]"
-                          : "bg-[#E5E7EB] text-[#4B5563]"
-                      }`}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-                <div className="flex gap-2">
+                <CardHeader>
+                  <CardTitle
+                    className={`text-lg font-bold ${
+                      theme === "dark" ? "text-white" : "text-[#1F2937]"
+                    }`}
+                  >
+                    {project.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p
+                    className={`text-sm mb-4 ${
+                      theme === "dark" ? "text-[#C9D1D9]" : "text-[#4B5563]"
+                    }`}
+                  >
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, idx) => (
+                      <motion.span
+                        key={idx}
+                        className={`text-xs px-2 py-1 rounded ${
+                          theme === "dark"
+                            ? "bg-[#30363D] text-[#8B949E]"
+                            : "bg-[#E5E7EB] text-[#4B5563]"
+                        }`}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter className="flex gap-2">
                   {project.github && (
                     <Button
                       variant="outline"
                       size="sm"
                       asChild
-                      className={
+                      className={`flex-1 ${
                         theme === "dark"
                           ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
                           : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-                      }
+                      } transition-colors duration-200`}
                     >
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="flex items-center justify-center"
                       >
                         <Github className="mr-2 h-4 w-4" />
                         GitHub
@@ -221,51 +236,55 @@ export default function Projects({ theme }: ProjectsProps) {
                       variant="outline"
                       size="sm"
                       asChild
-                      className={
+                      className={`flex-1 ${
                         theme === "dark"
                           ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
                           : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-                      }
+                      } transition-colors duration-200`}
                     >
                       <a
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="flex items-center justify-center"
                       >
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Demo
                       </a>
                     </Button>
                   )}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-        <div className="flex justify-between items-center mt-6">
+                </CardFooter>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+      </CardContent>
+      <CardFooter>
+        <div className="flex justify-center w-full mt-8">
           <Button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-            variant="outline"
-            className={theme === "dark" ? "text-white" : "text-[#1F2937]"}
+            className={`mr-2 ${
+              theme === "dark"
+                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+            } transition-colors duration-200`}
           >
-            <ChevronLeft className="mr-2 h-4 w-4" /> Previous
+            <ChevronLeft className="h-4 w-4 mr-2" /> Previous
           </Button>
-          <span className={theme === "dark" ? "text-white" : "text-[#1F2937]"}>
-            Page {currentPage} of {totalPages}
-          </span>
           <Button
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-            variant="outline"
-            className={theme === "dark" ? "text-white" : "text-[#1F2937]"}
+            onClick={() => paginate(currentPage + 1)}
+            disabled={indexOfLastProject >= projects.length}
+            className={`ml-2 ${
+              theme === "dark"
+                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+            } transition-colors duration-200`}
           >
-            Next <ChevronRight className="ml-2 h-4 w-4" />
+            Next <ChevronRight className="h-4 w-4 ml-2" />
           </Button>
         </div>
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 }
