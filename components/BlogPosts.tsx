@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ChevronLeft,
@@ -11,7 +11,6 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
-// Define the type for BlogPost
 interface BlogPost {
   guid: string;
   title: string;
@@ -20,7 +19,7 @@ interface BlogPost {
 }
 
 interface BlogPostsProps {
-  posts: BlogPost[]; // Add posts prop here
+  posts: BlogPost[];
   theme: "light" | "dark";
 }
 
@@ -38,9 +37,10 @@ const itemVariants = {
   },
 };
 
+const postsPerPage = 6;
+
 export default function BlogPosts({ posts, theme }: BlogPostsProps) {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const postsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const sortedPosts = [...posts].sort(
     (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
@@ -49,6 +49,7 @@ export default function BlogPosts({ posts, theme }: BlogPostsProps) {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -118,29 +119,38 @@ export default function BlogPosts({ posts, theme }: BlogPostsProps) {
       </motion.div>
 
       {/* Pagination Controls */}
-      <div className="flex justify-center mt-8">
-        <Button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`mr-2 ${
-            theme === "dark"
-              ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-              : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-          } transition-colors duration-200`}
-        >
-          <ChevronLeft className="h-4 w-4 mr-2" /> Previous
-        </Button>
-        <Button
-          onClick={() => paginate(currentPage + 1)}
-          disabled={indexOfLastPost >= sortedPosts.length}
-          className={`ml-2 ${
-            theme === "dark"
-              ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-              : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-          } transition-colors duration-200`}
-        >
-          Next <ChevronRight className="h-4 w-4 ml-2" />
-        </Button>
+      <div className="flex flex-col sm:flex-row justify-center items-center mt-8 space-y-4 sm:space-y-0">
+        <div className="flex items-center space-x-2">
+          <Button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-3 py-2 ${
+              theme === "dark"
+                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+            } transition-colors duration-200`}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span
+            className={`text-sm ${
+              theme === "dark" ? "text-white" : "text-[#1F2937]"
+            }`}
+          >
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-2 ${
+              theme === "dark"
+                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+            } transition-colors duration-200`}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );

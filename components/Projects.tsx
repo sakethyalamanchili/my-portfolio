@@ -139,6 +139,7 @@ export default function Projects({ theme }: ProjectsProps) {
     indexOfFirstProject,
     indexOfLastProject
   );
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -217,8 +218,8 @@ export default function Projects({ theme }: ProjectsProps) {
                       className={`flex-1 ${
                         theme === "dark"
                           ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-                          : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-                      } transition-colors duration-200`}
+                          : "bg-white text-[#1F2937] "
+                      } hover:bg-opacity-80 transition-colors duration-200`}
                     >
                       <a
                         href={project.github}
@@ -239,8 +240,8 @@ export default function Projects({ theme }: ProjectsProps) {
                       className={`flex-1 ${
                         theme === "dark"
                           ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-                          : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-                      } transition-colors duration-200`}
+                          : "bg-white text-[#1F2937]"
+                      } hover:bg-opacity-80 transition-colors duration-200`}
                     >
                       <a
                         href={project.demo}
@@ -260,29 +261,38 @@ export default function Projects({ theme }: ProjectsProps) {
         </motion.div>
       </CardContent>
       <CardFooter>
-        <div className="flex justify-center w-full mt-8">
-          <Button
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-            className={`mr-2 ${
-              theme === "dark"
-                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-            } transition-colors duration-200`}
-          >
-            <ChevronLeft className="h-4 w-4 mr-2" /> Previous
-          </Button>
-          <Button
-            onClick={() => paginate(currentPage + 1)}
-            disabled={indexOfLastProject >= projects.length}
-            className={`ml-2 ${
-              theme === "dark"
-                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-            } transition-colors duration-200`}
-          >
-            Next <ChevronRight className="h-4 w-4 ml-2" />
-          </Button>
+        <div className="flex flex-col sm:flex-row justify-center items-center w-full mt-8 space-y-4 sm:space-y-0">
+          <div className="flex items-center space-x-2">
+            <Button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`px-3 py-2 ${
+                theme === "dark"
+                  ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                  : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+              } transition-colors duration-200`}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <span
+              className={`text-sm ${
+                theme === "dark" ? "text-white" : "text-[#1F2937]"
+              }`}
+            >
+              Page {currentPage} of {totalPages}
+            </span>
+            <Button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-2 ${
+                theme === "dark"
+                  ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                  : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+              } transition-colors duration-200`}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </CardFooter>
     </Card>

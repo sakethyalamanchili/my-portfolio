@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -11,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
 
 interface Filter {
   id: string;
@@ -130,29 +130,38 @@ export default function SnapchatFilters({
       </motion.div>
 
       {/* Pagination Controls */}
-      <div className="flex justify-center mt-8">
-        <Button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`mr-2 ${
-            theme === "dark"
-              ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-              : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-          } transition-colors duration-200`}
-        >
-          <ChevronLeft className="h-4 w-4 mr-2" /> Previous
-        </Button>
-        <Button
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`ml-2 ${
-            theme === "dark"
-              ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
-              : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
-          } transition-colors duration-200`}
-        >
-          Next <ChevronRight className="h-4 w-4 ml-2" />
-        </Button>
+      <div className="flex flex-col sm:flex-row justify-center items-center mt-8 space-y-4 sm:space-y-0">
+        <div className="flex items-center space-x-2">
+          <Button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-3 py-2 ${
+              theme === "dark"
+                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+            } transition-colors duration-200`}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span
+            className={`text-sm ${
+              theme === "dark" ? "text-white" : "text-[#1F2937]"
+            }`}
+          >
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-2 ${
+              theme === "dark"
+                ? "bg-[#30363D] text-white hover:bg-[#3C444D]"
+                : "bg-white text-[#1F2937] hover:bg-[#F3F4F6]"
+            } transition-colors duration-200`}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );

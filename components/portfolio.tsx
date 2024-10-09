@@ -21,7 +21,6 @@ import {
   Moon,
   Sun,
   Menu,
-  X,
 } from "lucide-react";
 import {
   FaGithub,
@@ -72,21 +71,12 @@ export default function Portfolio() {
   const { theme, setTheme } = useTheme();
   const [activeTab, setActiveTab] = useState("about");
   const [isClient, setIsClient] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    // Set the default theme to dark
     setTheme("dark");
-
-    const handleResize = () => {
-      const isMobileView = window.innerWidth < 768;
-      setIsMobile(isMobileView);
-      setIsMobileMenuOpen(isMobileView);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Call it initially
 
     fetch(
       "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@sakethyalamanchili"
@@ -176,8 +166,6 @@ export default function Portfolio() {
           "https://app.snapchat.com/web/deeplink/snapcode?data=865823d263b249119832aa7adf948b42&version=1&type=svg",
       },
     ]);
-
-    return () => window.removeEventListener("resize", handleResize);
   }, [setTheme]);
 
   const tabVariants = {
@@ -355,11 +343,7 @@ export default function Portfolio() {
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
-                {isMobileMenuOpen ? (
-                  <X className="h-4 w-4" />
-                ) : (
-                  <Menu className="h-4 w-4" />
-                )}
+                <Menu className="h-4 w-4" />
               </Button>
             </SheetTrigger>
             <SheetContent
@@ -399,9 +383,7 @@ export default function Portfolio() {
 
         {/* Main content */}
         <motion.div
-          className={`flex-1 p-4 md:p-8 md:ml-64 ${
-            isMobile && isMobileMenuOpen ? "hidden" : ""
-          }`}
+          className="flex-1 p-4 md:p-8 md:ml-64"
           initial="hidden"
           animate="visible"
           variants={contentVariants}
