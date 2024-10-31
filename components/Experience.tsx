@@ -10,8 +10,8 @@ interface ExperienceProps {
 const experienceItems = [
   {
     title: "Software Developer Intern",
-    company: "Levicent (Remote)",
-    period: "May 2024 - Present",
+    company: "Levicent",
+    period: "May 2024 - Nov 2024",
     responsibilities: [
       "Engineered a multi-language support system for critical enterprise applications (HMS & HRMS), driving user engagement up by 20% through enhanced global accessibility",
       "Designed and implemented robust session management, elevating security protocols and reducing unauthorized access by 15% across systems",
@@ -20,8 +20,8 @@ const experienceItems = [
   },
   {
     title: "Lens Developer",
-    company: "Freelance - SnapAR (Remote)",
-    period: "Jan 2022 - Present",
+    company: "Freelance - SnapAR",
+    period: "Jan 2022 - May 2024",
     responsibilities: [
       "Crafted over 300 cutting-edge augmented reality lenses for Snapchat, amassing a staggering 100 billion views and transforming user experiences",
       "Growing my Snapchat profile to 600K followers by leveraging innovative AR lens designs and strategic social media growth tactics",

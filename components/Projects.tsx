@@ -18,6 +18,13 @@ interface ProjectsProps {
 
 const projects = [
   {
+    title: "ASCII Art Generator",
+    description:
+      "An open-source project to convert images into expressive ASCII art! Created with Python and Streamlit, this app lets you transform images into text-based art right in your browser. This is not just an art generator but a community-driven project that thrives on contributions to evolve with new features and ideas!",
+    technologies: ["Python", "Streamlit"],
+    github: "https://github.com/sakethyalamanchili/ASCII-Art-Generator",
+  },
+  {
     title: "Medical Prescription Translator",
     description:
       "A Streamlit app that translates medical prescriptions into Indian languages using Google's Gemini AI. It helps users input patient details and medications and provides accurate translations in languages like Hindi, Telugu, and more.",

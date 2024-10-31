@@ -59,6 +59,7 @@ const skillCategories: SkillCategory[] = [
       { name: "Angular", level: 75 },
       { name: "Tailwind CSS", level: 75 },
       { name: "Bootstrap", level: 80 },
+      { name: "Cloudinary", level: 80 },
     ],
   },
   {
@@ -171,7 +172,7 @@ export default function Skills({ theme }: SkillsProps) {
                 key={skill.name}
                 variants={itemVariants}
                 layout
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
                 <div
