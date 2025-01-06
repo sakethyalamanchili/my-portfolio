@@ -20,7 +20,7 @@ const About: React.FC<AboutProps> = ({ theme }) => {
   );
 
   const resumeLink =
-    "https://drive.google.com/file/d/1UoQBlGI_kYeE1GiCJ_o0FXHUDL4IPV10/view?usp=drive_link";
+    "https://drive.google.com/file/d/1RFxQHqzaAnfoACew09yfVlwg20yabMnR/view?usp=sharing";
   const hireEmail =
     "mailto:saketh.engineer@gmail.com?subject=Job%20Opportunity&body=Hello%20Saketh,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20I'm%20interested%20in%20discussing%20a%20potential%20job%20opportunity%20with%20you.";
 
