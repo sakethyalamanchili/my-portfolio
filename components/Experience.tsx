@@ -10,7 +10,7 @@ interface ExperienceProps {
 const experienceItems = [
   {
     title: "Software Developer Intern",
-    company: "Levicent",
+    company: "Levicent Software Technologies",
     period: "May 2024 - Nov 2024",
     responsibilities: [
       "Engineered a multi-language support system for critical enterprise applications (HMS & HRMS), driving user engagement up by 20% through enhanced global accessibility",
@@ -26,6 +26,15 @@ const experienceItems = [
       "Crafted over 300 cutting-edge augmented reality lenses for Snapchat, amassing a staggering 100 billion views and transforming user experiences",
       "Growing my Snapchat profile to 600K followers by leveraging innovative AR lens designs and strategic social media growth tactics",
       "Collaborating with top creators on innovative AR lenses, pushing creative boundaries and expanding global audience reach",
+    ],
+  },
+  {
+    title: "Private Tutor",
+    company: "Self-Employed",
+    period: "Jan 2021 - Dec 2023",
+    responsibilities: [
+      "Provided one-on-one tutoring in Math, Science, and Social Studies at home, helping students improve their academic performance.",
+      "Created tailored lesson plans to address individual student learning needs, resulting in significant grade improvements."
     ],
   },
 ];
