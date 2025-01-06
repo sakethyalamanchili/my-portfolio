@@ -9,6 +9,15 @@ interface ExperienceProps {
 
 const experienceItems = [
   {
+    {
+    title: "Private Tutor",
+    company: "Self-Employed",
+    period: "Oct 2022 - Dec 2024",
+    responsibilities: [
+      "Provided one-on-one tutoring in Math, Science, and Social Studies at home, helping students improve their academic performance.",
+      "Created tailored lesson plans to address individual student learning needs, resulting in significant grade improvements."
+    ],
+  },
     title: "Software Developer Intern",
     company: "Levicent Software Technologies",
     period: "May 2024 - Nov 2024",
@@ -27,16 +36,7 @@ const experienceItems = [
       "Growing my Snapchat profile to 600K followers by leveraging innovative AR lens designs and strategic social media growth tactics",
       "Collaborating with top creators on innovative AR lenses, pushing creative boundaries and expanding global audience reach",
     ],
-  },
-  {
-    title: "Private Tutor",
-    company: "Self-Employed",
-    period: "Jan 2021 - Dec 2023",
-    responsibilities: [
-      "Provided one-on-one tutoring in Math, Science, and Social Studies at home, helping students improve their academic performance.",
-      "Created tailored lesson plans to address individual student learning needs, resulting in significant grade improvements."
-    ],
-  },
+  }
 ];
 
 const containerVariants = {
