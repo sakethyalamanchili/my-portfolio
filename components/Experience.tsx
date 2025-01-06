@@ -8,7 +8,6 @@ interface ExperienceProps {
 }
 
 const experienceItems = [
-  {
     {
     title: "Private Tutor",
     company: "Self-Employed",
@@ -18,6 +17,7 @@ const experienceItems = [
       "Created tailored lesson plans to address individual student learning needs, resulting in significant grade improvements."
     ],
   },
+  {
     title: "Software Developer Intern",
     company: "Levicent Software Technologies",
     period: "May 2024 - Nov 2024",
