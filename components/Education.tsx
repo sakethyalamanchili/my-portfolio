@@ -11,7 +11,7 @@ const educationItems = [
   {
     degree: "Master of Science in Data Science and Analytics",
     school: "Florida Atlantic University",
-    period: "Starting Spring 2025",
+    period: "Spring 2025",
     logo: "https://www.fau.edu/images/homepage/owlhead-logo.png", // FAU Logo
     details:
       "Specializing in advanced data analysis, machine learning, and big data technologies, with a focus on healthcare applications. The program covers key areas such as deep learning, artificial intelligence (AI), and the development of innovative data science solutions for complex real-world challenges.",

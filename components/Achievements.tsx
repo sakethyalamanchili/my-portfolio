@@ -10,6 +10,7 @@ import {
   Award,
   FileText,
   Cpu,
+  Code,
 } from "lucide-react";
 
 interface AchievementsProps {
@@ -64,6 +65,12 @@ const achievements = [
     title: "Project Leadership",
     description:
       "Led a team of three during my BTech, successfully managing both mini and major projects focused on embedded systems and the Internet of Things.",
+  },
+  {
+    icon: Code,
+    title: "AllofUS Hackathon - Team DECODE",
+    description:
+      "Participated in the FAU 'Data Engineering Hackathon for Precision Medicine,' developing an AI-driven web application for early Chronic Kidney Disease detection, handling 20M+ real-time data points.",
   },
 ];
 

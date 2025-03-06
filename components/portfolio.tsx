@@ -534,7 +534,7 @@ export default function Portfolio() {
       href: "https://www.kaggle.com/sakethyalamanchili",
       label: "Kaggle",
     },
-    { icon: Mail, href: "mailto:saketh.engineer@gmail.com", label: "Email" },
+    { icon: Mail, href: "mailto:syalamanchil2025@fau.edu", label: "Email" },
     {
       icon: FaSnapchat,
       href: "https://www.snapchat.com/add/saketh05",
@@ -585,7 +585,7 @@ export default function Portfolio() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Software Developer | Data Science Enthusiast | AR Creator
+            Data Scientist | Software Developer | AR Creator
           </motion.p>
         </div>
         <div className="flex flex-wrap justify-center gap-1 mb-6">

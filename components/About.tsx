@@ -20,9 +20,9 @@ const About: React.FC<AboutProps> = ({ theme }) => {
   );
 
   const resumeLink =
-    "https://drive.google.com/file/d/1RFxQHqzaAnfoACew09yfVlwg20yabMnR/view?usp=sharing";
+    "https://drive.google.com/file/d/1z4OW9xS3yBk8BjyRbDYNwsPvUYqX9KHs/view?usp=drive_link";
   const hireEmail =
-    "mailto:saketh.engineer@gmail.com?subject=Job%20Opportunity&body=Hello%20Saketh,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20I'm%20interested%20in%20discussing%20a%20potential%20job%20opportunity%20with%20you.";
+    "mailto:syalamanchil2025@fau.edu?subject=Job%20Opportunity&body=Hello%20Saketh,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20I'm%20interested%20in%20discussing%20a%20potential%20job%20opportunity%20with%20you.";
 
   return (
     <Card
@@ -36,32 +36,32 @@ const About: React.FC<AboutProps> = ({ theme }) => {
         <CardTitle className="text-2xl font-bold">About Me</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-sm md:text-base">
-          Hello! I’m Saketh Yalamanchili, a Software Developer with a focus on{" "}
-          {highlightedText("Data Science")} and{" "}
-          {highlightedText("Machine Learning")}. My background in{" "}
-          {highlightedText("Electronics and Communication Engineering")} drives
-          my passion for building solutions that bridge{" "}
-          {highlightedText("technology")} and {highlightedText("innovation")}.
+      <p className="text-sm md:text-base">
+          Hey there! I’m Saketh Yalamanchili, a Master’s student in{" "}
+          {highlightedText("Data Science & Analytics")} at{" "}
+          {highlightedText("Florida Atlantic University")}. My passion lies in{" "}
+          {highlightedText("AI")}, {highlightedText("Machine Learning")}, and{" "}
+          {highlightedText("Software Development")}. I come from an{" "}
+          {highlightedText("Electronics and Communication")} background, specializing in{" "}
+          {highlightedText("IoT")}, where I worked on projects that combined{" "}
+          {highlightedText("ML and IoT")} to solve real-world problems.
         </p>
         <p className="text-sm md:text-base">
-          From developing {highlightedText("web applications")} to creating{" "}
-          {highlightedText("AR experiences")}, I’m dedicated to combining tech
-          with creativity. I’m especially fascinated by how{" "}
-          {highlightedText("AI")} and {highlightedText("Data Science")} are
-          reshaping the world, and I aim to make an impact with each project.
+          I also have hands-on industry experience from a{" "}
+          {highlightedText("6-month paid internship")} as a{" "}
+          {highlightedText("Software Developer")} at{" "}
+          {highlightedText("Levicent Software Technologies")}, where I worked on{" "}
+          {highlightedText("full-stack development")} and built scalable software solutions.
         </p>
         <p className="text-sm md:text-base">
-          Cricket is another big part of my life—it taught me{" "}
+          Outside of tech, cricket has been a huge part of my life—it’s where I learned{" "}
           {highlightedText("teamwork")}, {highlightedText("leadership")}, and{" "}
-          {highlightedText("discipline")}. These principles guide me as I
-          collaborate and build solutions that matter.
+          {highlightedText("discipline")}, qualities that shape how I work and collaborate today.
         </p>
         <p className="text-sm md:text-base">
-          I’m always open to new opportunities in{" "}
-          {highlightedText("Data Science")} and{" "}
-          {highlightedText("Machine Learning")}. Let’s connect and create
-          something impactful together!
+          I’m always excited to explore new opportunities in{" "}
+          {highlightedText("Data Science")} and {highlightedText("ML")}. Let’s connect and build
+          something meaningful together!
         </p>
         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-6">
           <Button variant="outline" className="w-full sm:w-auto" asChild>

@@ -1,3 +1,4 @@
+import type React from "react"
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -7,7 +8,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Saketh Yalamanchili Portfolio",
-  description: "Software Developer, Data Scientist, and AR Creator",
+  description: "Data Scientist, Software Developer, and AR Creator",
+  icons: {
+    icon: "app\favicon.ico"
+  },
 };
 
 export default function RootLayout({

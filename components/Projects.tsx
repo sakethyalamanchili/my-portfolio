@@ -18,6 +18,13 @@ interface ProjectsProps {
 
 const projects = [
   {
+    title: "Early Detection of Chronic Kidney Disease Using AI in Precision Medicine",
+    description:
+      "I worked on this project during a hackathon conducted by All of Us Research, where I used real-time data to predict Chronic Kidney Disease (CKD) in individuals using Machine Learning. This was a multiclass classification problem. Additionally, I developed an interface using React.js to allow users to input their data and receive predictions on CKD stage, risk level, prediction probability, and recommended actions.",
+    technologies: ["Python", "React"],
+    github: "https://github.com/sakethyalamanchili/CKD-Risk-Prediction",
+  },
+  {
     title: "ASCII Art Generator",
     description:
       "An open-source project to convert images into expressive ASCII art! Created with Python and Streamlit, this app lets you transform images into text-based art right in your browser. This is not just an art generator but a community-driven project that thrives on contributions to evolve with new features and ideas!",
