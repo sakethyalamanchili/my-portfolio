@@ -11,6 +11,7 @@ import {
   FileText,
   Cpu,
   Code,
+  Star,
 } from "lucide-react";
 
 interface AchievementsProps {
@@ -71,6 +72,18 @@ const achievements = [
     title: "AllofUS Hackathon - Team DECODE",
     description:
       "Participated in the FAU 'Data Engineering Hackathon for Precision Medicine,' developing an AI-driven web application for early Chronic Kidney Disease detection, handling 20M+ real-time data points.",
+  },
+  {
+    icon: FileText,
+    title: "Research Paper on Heterogeneous Transfer Learning",
+    description:
+      "Authored a detailed research paper for my Data Mining course, exploring the challenges and methodologies in Heterogeneous Transfer Learning, with applications in diverse domains.",
+  },
+  {
+    icon: Star,
+    title: "First Semester GPA",
+    description:
+      "Achieved a perfect GPA of 4.0 in my first semester of the Master's program in Data Science and Analytics, reflecting academic excellence and dedication.",
   },
 ];
 

@@ -32,8 +32,8 @@ const experienceItems = [
     company: "Freelance - SnapAR",
     period: "Jan 2022 - May 2024",
     responsibilities: [
-      "Crafted over 300 cutting-edge augmented reality lenses for Snapchat, amassing a staggering 100 billion views and transforming user experiences",
-      "Growing my Snapchat profile to 600K followers by leveraging innovative AR lens designs and strategic social media growth tactics",
+      "Crafted over 300 cutting-edge augmented reality lenses for Snapchat, amassing a staggering 150 billion views and transforming user experiences",
+      "Growing my Snapchat profile to 700K followers by leveraging innovative AR lens designs and strategic social media growth tactics",
       "Collaborating with top creators on innovative AR lenses, pushing creative boundaries and expanding global audience reach",
     ],
   }

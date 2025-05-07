@@ -46,7 +46,8 @@ const skillCategories: SkillCategory[] = [
       { name: "Jupyter", level: 85 },
       { name: "Google Colab", level: 85 },
       { name: "Keras", level: 75 },
-      { name: "Weka", level: 80 },
+      { name: "Weka", level: 90 },
+      { name: "Research", level: 80 },
     ],
   },
   {
@@ -79,6 +80,7 @@ const skillCategories: SkillCategory[] = [
       { name: "C", level: 70 },
       { name: "C++", level: 70 },
       { name: "XML", level: 70 },
+      { name: "LaTeX", level: 75 },
     ],
   },
   {
@@ -92,6 +94,9 @@ const skillCategories: SkillCategory[] = [
       { name: "Swagger", level: 70 },
       { name: "phpMyAdmin", level: 70 },
       { name: "Streamlit", level: 80 },
+      { name: "Power BI", level: 85 },
+      { name: "Tableau", level: 80 },
+      { name: "Excel", level: 85 },
     ],
   },
   {
@@ -102,6 +107,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
 ];
+
 
 const containerVariants = {
   hidden: { opacity: 0 },

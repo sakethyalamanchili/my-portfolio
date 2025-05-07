@@ -18,6 +18,20 @@ interface ProjectsProps {
 
 const projects = [
   {
+    title: "Research Paper on Heterogeneous Transfer Learning",
+    description:
+      "Authored a comprehensive research paper for my Data Mining course, exploring the challenges, methodologies, and future directions in Heterogeneous Transfer Learning (HTL). The paper delves into real-world applications of HTL in various domains and its potential to address complex problems by bridging the gap between diverse data sources and models.",
+    technologies: ["LaTeX", "Academic Research", "Data Mining"],
+    github: "https://github.com/sakethyalamanchili/Masters-FAU/blob/main/CAP-6673_Data-Mining-Machine-Learning/a_survey_on_heterogeneous_transfer_learning_yalamanchili_saketh.pdf",
+  },
+  {
+    title: "Power BI Analysis of Student Performance and Risk Patterns",
+    description:
+      "Developed five interactive Power BI dashboards to analyze student success, risk factors, and demographic influences. The dashboards provided insights into academic performance, assessment methods, student engagement, and key behavioral patterns, uncovering correlations between factors such as sleep, stress, study hours, and performance. The project aimed to derive actionable insights for educational institutions.",
+    technologies: ["Power BI", "DAX", "Data Analysis", "Business Analytics"],
+    github: "https://github.com/sakethyalamanchili/Masters-FAU/blob/main/ISM-6404_Intro-to-Business-Analytics/final_project_saketh_mounika.pdf",
+  },
+  {
     title: "Early Detection of Chronic Kidney Disease Using AI in Precision Medicine",
     description:
       "I worked on this project during a hackathon conducted by All of Us Research, where I used real-time data to predict Chronic Kidney Disease (CKD) in individuals using Machine Learning. This was a multiclass classification problem. Additionally, I developed an interface using React.js to allow users to input their data and receive predictions on CKD stage, risk level, prediction probability, and recommended actions.",

@@ -14,8 +14,8 @@ const educationItems = [
     period: "Spring 2025",
     logo: "https://www.fau.edu/images/homepage/owlhead-logo.png", // FAU Logo
     details:
-      "Specializing in advanced data analysis, machine learning, and big data technologies, with a focus on healthcare applications. The program covers key areas such as deep learning, artificial intelligence (AI), and the development of innovative data science solutions for complex real-world challenges.",
-  },
+      "GPA: 4/4. Pursuing an MS in Data Science and Analytics, specializing in advanced data analysis, machine learning, and big data technologies. The program covers key areas such as deep learning, artificial intelligence (AI), and the development of innovative data science solutions for complex, real-world challenges. Currently maintaining a 4.0 GPA, reflecting a strong commitment to academic excellence and a passion for applying data-driven insights to solve intricate problems.",
+  },  
   {
     degree:
       "Bachelor of Technology in Electronics and Communication Engineering",

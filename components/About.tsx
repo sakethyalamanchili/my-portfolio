@@ -20,7 +20,7 @@ const About: React.FC<AboutProps> = ({ theme }) => {
   );
 
   const resumeLink =
-    "https://drive.google.com/file/d/1z4OW9xS3yBk8BjyRbDYNwsPvUYqX9KHs/view?usp=drive_link";
+    "https://drive.google.com/file/d/1cjX1jYBMyoUlQstgyExkaWSxg4kBkbr7/view?usp=drive_link";
   const hireEmail =
     "mailto:syalamanchil2025@fau.edu?subject=Job%20Opportunity&body=Hello%20Saketh,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20I'm%20interested%20in%20discussing%20a%20potential%20job%20opportunity%20with%20you.";
 
