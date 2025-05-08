@@ -36,76 +36,33 @@ const About: React.FC<AboutProps> = ({ theme }) => {
         <CardTitle className="text-2xl font-bold">About Me</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-sm md:text-base font-medium">Dear {highlightedText("Visitor")},</p>
-
-        <p className="text-sm md:text-base">
-          You've probably seen a hundred {highlightedText("About Me")} pages before this one. All neat. All impressive. All... kind of the same.
-        </p>
-
-        <p className="text-sm md:text-base">
-          But if you've landed here, let me give you something else — a {highlightedText("story")}, not a summary.
-        </p>
-
-        <p className="text-sm md:text-base">
-          My name is {highlightedText("Saketh Yalamanchili")}. I'm a master's student in{" "}
+      <p className="text-sm md:text-base">
+          Hey there! I’m Saketh Yalamanchili, a Master’s student in{" "}
           {highlightedText("Data Science & Analytics")} at{" "}
-          {highlightedText("Florida Atlantic University")}. But that's just the headline. The real story? It began with a{" "}
-          {highlightedText("circuit board")}, a stubborn bug, and an even more stubborn curiosity.
+          {highlightedText("Florida Atlantic University")}. My passion lies in{" "}
+          {highlightedText("AI")}, {highlightedText("Machine Learning")}, and{" "}
+          {highlightedText("Software Development")}. I come from an{" "}
+          {highlightedText("Electronics and Communication")} background, specializing in{" "}
+          {highlightedText("IoT")}, where I worked on projects that combined{" "}
+          {highlightedText("ML and IoT")} to solve real-world problems.
         </p>
-
         <p className="text-sm md:text-base">
-          I come from an {highlightedText("Electronics & Communication")} background — a world of wires, sensors, and blinking LEDs. But I was never just building gadgets. I was trying to teach them how to{" "}
-          {highlightedText("feel")}, how to{" "}
-          {highlightedText("respond")}, how to{" "}
-          {highlightedText("understand")}. That's where{" "}
-          {highlightedText("Machine Learning")} stepped in — not as a career path, but as a{" "}
-          {highlightedText("love story")}.
+          I also have hands-on industry experience from a{" "}
+          {highlightedText("6-month paid internship")} as a{" "}
+          {highlightedText("Software Developer")} at{" "}
+          {highlightedText("Levicent Software Technologies")}, where I worked on{" "}
+          {highlightedText("full-stack development")} and built scalable software solutions.
         </p>
-
         <p className="text-sm md:text-base">
-          I spent six months at{" "}
-          {highlightedText("Levicent Software")}, where I built{" "}
-          {highlightedText("full-stack solutions")}, broke things (with flair), fixed them (with coffee), and learned that real-world{" "}
-          {highlightedText("software development")} isn't about perfection — it's about{" "}
-          {highlightedText("persistence")}.
+          Outside of tech, cricket has been a huge part of my life—it’s where I learned{" "}
+          {highlightedText("teamwork")}, {highlightedText("leadership")}, and{" "}
+          {highlightedText("discipline")}, qualities that shape how I work and collaborate today.
         </p>
-
         <p className="text-sm md:text-base">
-          When I'm not teaching machines to learn, I'm on a{" "}
-          {highlightedText("cricket field")} — reading the pitch, waiting for the right shot, learning from every mistake. It's where I first understood{" "}
-          {highlightedText("strategy")},{" "}
-          {highlightedText("resilience")}, and how to{" "}
-          {highlightedText("lose gracefully")} — lessons that followed me into every project since.
+          I’m always excited to explore new opportunities in{" "}
+          {highlightedText("Data Science")} and {highlightedText("ML")}. Let’s connect and build
+          something meaningful together!
         </p>
-
-        <p className="text-sm md:text-base">
-          This portfolio?  
-          It's not just code and credentials. It's a{" "}
-          {highlightedText("letter")} to anyone who still believes in{" "}
-          {highlightedText("craft")} — in work that's not just{" "}
-          {highlightedText("functional")}, but{" "}
-          {highlightedText("felt")}. Every project here carries a piece of me: the joy of getting something to finally run, the pain of{" "}
-          {highlightedText("3AM bugs")}, and the quiet pride of building something that{" "}
-          {highlightedText("matters")}.
-        </p>
-
-        <p className="text-sm md:text-base">
-          So no, this isn't just an {highlightedText("“About Me”")}.  
-          It's a{" "}
-          {highlightedText("handshake")}. A welcome. A small window into what{" "}
-          {highlightedText("drives me")}.
-        </p>
-
-        <p className="text-sm md:text-base">
-          And if anything here feels{" "}
-          {highlightedText("familiar")} — if it makes you pause, smile, or nod — then maybe we're already on the same page.
-        </p>
-
-        <p className="text-sm md:text-base font-medium">
-          With purpose (and just enough poetry),<br />
-          Saketh
-        </p>
-
         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-6">
           <Button variant="outline" className="w-full sm:w-auto" asChild>
             <Link href={resumeLink} target="_blank" rel="noopener noreferrer">
