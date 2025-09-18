@@ -55,7 +55,8 @@ const About: React.FC<AboutProps> = ({ theme }) => {
         </p>
         <div>
           <p className="text-sm md:text-base font-semibold mb-2">My professional experience includes:</p>
-          <ul className="list-disc list-inside space-y-2 text-sm md:text-base">
+          {/* --- THIS IS THE MODIFIED LINE --- */}
+          <ul className="list-disc list-outside space-y-2 pl-5 text-sm md:text-base">
             <li>
               <strong>Software Development:</strong> As an intern at{" "}
               {highlightedText("Levicent Software")}, I enhanced enterprise
