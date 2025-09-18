@@ -24,104 +24,100 @@ const About: React.FC<AboutProps> = ({ theme }) => {
   const hireEmail =
     "mailto:syalamanchil2025@fau.edu?subject=Job%20Opportunity&body=Hello%20Saketh,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20I'm%20interested%20in%20discussing%20a%20potential%20job%20opportunity%20with%20you.";
 
-    return (
-      <Card
-        className={`${
-          theme === "dark"
-            ? "bg-[#161B22] border-[#30363D]"
-            : "bg-white border-[#E5E7EB]"
-        }`}
-      >
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">About Me</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-sm md:text-base font-medium">Dear {highlightedText("Visitor")},</p>
-    
-          <p className="text-sm md:text-base">
-            You&apos;ve probably seen a hundred {highlightedText("About Me")} pages before this one. All neat. All impressive. All... kind of the same.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            But if you&apos;ve landed here, let me give you something else — a {highlightedText("story")}, not a summary.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            My name is {highlightedText("Saketh Yalamanchili")}. I&apos;m a master&apos;s student in{" "}
-            {highlightedText("Data Science & Analytics")} at{" "}
-            {highlightedText("Florida Atlantic University")}. But that&apos;s just the headline. The real story? It began with a{" "}
-            {highlightedText("circuit board")}, a stubborn bug, and an even more stubborn curiosity.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            I come from an {highlightedText("Electronics & Communication")} background — a world of wires, sensors, and blinking LEDs. But I was never just building gadgets. I was trying to teach them how to{" "}
-            {highlightedText("feel")}, how to{" "}
-            {highlightedText("respond")}, how to{" "}
-            {highlightedText("understand")}. That&apos;s where{" "}
-            {highlightedText("Machine Learning")} stepped in — not as a career path, but as a{" "}
-            {highlightedText("love story")}.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            I spent six months at{" "}
-            {highlightedText("Levicent Software")}, where I built{" "}
-            {highlightedText("full-stack solutions")}, broke things (with flair), fixed them (with coffee), and learned that real-world{" "}
-            {highlightedText("software development")} isn&apos;t about perfection — it&apos;s about{" "}
-            {highlightedText("persistence")}.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            When I&apos;m not teaching machines to learn, I&apos;m on a{" "}
-            {highlightedText("cricket field")} — reading the pitch, waiting for the right shot, learning from every mistake. It&apos;s where I first understood{" "}
-            {highlightedText("strategy")},{" "}
-            {highlightedText("resilience")}, and how to{" "}
-            {highlightedText("lose gracefully")} — lessons that followed me into every project since.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            This portfolio?  
-            It&apos;s not just code and credentials. It&apos;s a{" "}
-            {highlightedText("letter")} to anyone who still believes in{" "}
-            {highlightedText("craft")} — in work that&apos;s not just{" "}
-            {highlightedText("functional")}, but{" "}
-            {highlightedText("felt")}. Every project here carries a piece of me: the joy of getting something to finally run, the pain of{" "}
-            {highlightedText("3AM bugs")}, and the quiet pride of building something that{" "}
-            {highlightedText("matters")}.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            So no, this isn&apos;t just an {highlightedText("“About Me”")}.  
-            It&apos;s a{" "}
-            {highlightedText("handshake")}. A welcome. A small window into what{" "}
-            {highlightedText("drives me")}.
-          </p>
-    
-          <p className="text-sm md:text-base">
-            And if anything here feels{" "}
-            {highlightedText("familiar")} — if it makes you pause, smile, or nod — then maybe we&apos;re already on the same page.
-          </p>
-    
-          <p className="text-sm md:text-base font-medium">
-            With purpose (and just enough poetry),<br />
-            Saketh
-          </p>
-    
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-6">
-            <Button variant="outline" className="w-full sm:w-auto" asChild>
-              <Link href={resumeLink} target="_blank" rel="noopener noreferrer">
-                <Download className="mr-2 h-4 w-4" /> Download Resume
-              </Link>
-            </Button>
-            <Button variant="default" className="w-full sm:w-auto" asChild>
-              <Link href={hireEmail}>
-                <Mail className="mr-2 h-4 w-4" /> Hire Me
-              </Link>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    );
-    
+  return (
+    <Card
+      className={`${
+        theme === "dark"
+          ? "bg-[#161B22] border-[#30363D]"
+          : "bg-white border-[#E5E7EB]"
+      }`}
+    >
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold">About Me</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p className="text-sm md:text-base">
+          Hello, I&apos;m {highlightedText("Saketh Yalamanchili")}.
+        </p>
+        <p className="text-sm md:text-base">
+          I&apos;m a {highlightedText("Data Science & Analytics Master's student")} at{" "}
+          {highlightedText("Florida Atlantic University")} with a{" "}
+          {highlightedText("4.0 GPA")} and a passion for building intelligent
+          systems that solve real-world problems.
+        </p>
+        <p className="text-sm md:text-base">
+          My journey began in Electronics & Communication, but I found my
+          calling at the intersection of{" "}
+          {highlightedText("data, machine learning, and human-centric design")}.
+          This has led me to develop a diverse skill set spanning{" "}
+          {highlightedText("Python, SQL")}, and machine learning frameworks like{" "}
+          {highlightedText("Scikit-learn, TensorFlow, and PyTorch")}.
+        </p>
+        <div>
+          <p className="text-sm md:text-base font-semibold mb-2">My professional experience includes:</p>
+          <ul className="list-disc list-inside space-y-2 text-sm md:text-base">
+            <li>
+              <strong>Software Development:</strong> As an intern at{" "}
+              {highlightedText("Levicent Software")}, I enhanced enterprise
+              software by engineering{" "}
+              {highlightedText("multi-language support systems")} and
+              overhauling session management with secure,{" "}
+              {highlightedText("token-based authentication")}. I also
+              contributed to an LMS by developing a{" "}
+              {highlightedText("customer support chatbot")} using PyTorch.
+            </li>
+            <li>
+              <strong>AI-Powered Solutions:</strong> My project work includes
+              developing a machine learning model to predict{" "}
+              {highlightedText("Chronic Kidney Disease")} using real-time
+              data and building an{" "}
+              {highlightedText("AI-powered medical prescription translator")} to
+              improve patient accessibility.
+            </li>
+            <li>
+              <strong>Augmented Reality:</strong> As a freelance{" "}
+              {highlightedText("SnapAR Lens Developer")}, I engineered over{" "}
+              {highlightedText("300 lenses")} that have collectively generated
+              more than {highlightedText("150 billion views")}, demonstrating my
+              ability to create engaging, viral AR experiences.
+            </li>
+          </ul>
+        </div>
+        <p className="text-sm md:text-base">
+          Currently, as a{" "}
+          {highlightedText("Graduate Research Assistant at FAU")}, I am helping to
+          launch the{" "}
+          {highlightedText("Vertically Integrated Projects (VIP) program")}, where
+          I mentor students in AI and Data Science and develop resources to
+          foster interdisciplinary research.
+        </p>
+        <p className="text-sm md:text-base">
+          I believe the most powerful technology is that which is not only
+          functional but also intuitive and impactful. This portfolio showcases
+          my commitment to that principle. If you&apos;re looking for a{" "}
+          {highlightedText("problem-solver")} who combines{" "}
+          {highlightedText("technical depth with a creative and strategic mindset")},
+          let&apos;s connect.
+        </p>
+        <p className="text-sm md:text-base font-medium">
+            Best regards,<br />
+            Saketh Yalamanchili
+        </p>
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-4">
+          <Button variant="outline" className="w-full sm:w-auto" asChild>
+            <Link href={resumeLink} target="_blank" rel="noopener noreferrer">
+              <Download className="mr-2 h-4 w-4" /> Download Resume
+            </Link>
+          </Button>
+          <Button variant="default" className="w-full sm:w-auto" asChild>
+            <Link href={hireEmail}>
+              <Mail className="mr-2 h-4 w-4" /> Hire Me
+            </Link>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default About;
