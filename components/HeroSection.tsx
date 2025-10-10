@@ -67,11 +67,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ theme, onExploreClick }) => {
 
   const viewsCount = useCounter(150);
   const followersCount = useCounter(750);
+  const lensesCount = useCounter(300);
   const gpaCount = useCounter(40) / 10;
 
   const stats = [
     { value: `${viewsCount}B+`, label: "Total Views", delay: 0 },
     { value: `${followersCount}K+`, label: "Followers", delay: 0.1 },
+    { value: `${lensesCount}+`, label: "AR Lenses", delay: 0.2 },
     { value: gpaCount.toFixed(1), label: "GPA", delay: 0.2 },
   ];
 
