@@ -50,9 +50,7 @@ const SnapchatFilters = dynamic(() => import("./SnapchatFilters"), {
 });
 const Achievements = dynamic(() => import("./Achievements"), { ssr: false });
 const HeroSection = dynamic(() => import("./HeroSection"), { ssr: false });
-const ParticleBackground = dynamic(() => import("./ParticleBackground"), { ssr: false });
 const ScrollToTop = dynamic(() => import("./ScrollToTop"), { ssr: false });
-const CustomCursor = dynamic(() => import("./CustomCursor"), { ssr: false });
 
 interface BlogPost {
   guid: string;
@@ -559,15 +557,17 @@ export default function Portfolio() {
 
   const Sidebar = ({ isMobile = false }) => (
     <ScrollArea className="h-full">
-      <div className="flex flex-col h-full px-4 py-6 backdrop-blur-sm">
-        <div className="flex flex-col items-center mb-8">
+      <div className="flex flex-col h-full px-6 py-8">
+        <div className="flex flex-col items-center mb-12">
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
             whileHover={{ scale: 1.05 }}
           >
-            <Avatar className="w-32 h-32 mb-4 ring-4 ring-blue-500/30 ring-offset-4 ring-offset-background">
+            <Avatar className={`w-20 h-20 mb-4 ring-1 ring-offset-2 transition-all duration-300 hover:ring-2 ${
+              theme === "dark" ? "ring-blue-500/30" : "ring-blue-500/20"
+            }`}>
               <AvatarImage
                 src="https://github.com/sakethyalamanchili.png"
                 alt="Saketh Yalamanchili"
@@ -576,7 +576,7 @@ export default function Portfolio() {
             </Avatar>
           </motion.div>
           <motion.h1
-            className="text-xl font-bold mb-2"
+            className={`text-base font-light mb-1 ${theme === "dark" ? "text-white" : "text-gray-900"}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -584,60 +584,35 @@ export default function Portfolio() {
             Saketh Yalamanchili
           </motion.h1>
           <motion.p
-            className={`text-sm text-center ${
-              theme === "dark" ? "text-[#8B949E]" : "text-[#6B7280]"
+            className={`text-xs font-light text-center ${
+              theme === "dark" ? "text-gray-500" : "text-gray-600"
             }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Data Scientist | Software Developer | AR Creator
+            Portfolio 2025
           </motion.p>
         </div>
-        <div className="flex flex-wrap justify-center gap-1 mb-6">
-          {socialLinks.map((link, index) => (
-            <TooltipProvider key={index}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-1.5 rounded-full transition-all duration-300 ${
-                      theme === "dark"
-                        ? "hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-600"
-                        : "hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500"
-                    }`}
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <link.icon className="h-4 w-4" />
-                  </motion.a>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{link.label}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          ))}
-        </div>
-        <nav className="flex-grow">
-          <ul className="space-y-2">
+        <nav className="flex-grow mb-8">
+          <ul className="space-y-1">
             {navItems.map((item, index) => (
               <motion.li
                 key={item.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * index }}
+                transition={{ delay: 0.05 * index }}
               >
                 <Button
                   variant="ghost"
-                  className={`w-full justify-start ${
+                  className={`w-full justify-start font-light text-sm transition-all duration-300 ${
                     activeTab === item.id
                       ? theme === "dark"
-                        ? "bg-[#21262D] text-white"
-                        : "bg-[#E5E7EB] text-[#1F2937]"
-                      : ""
+                        ? "bg-white/5 text-white border-l-2 border-blue-500"
+                        : "bg-gray-900/5 text-gray-900 border-l-2 border-blue-500"
+                      : theme === "dark"
+                      ? "text-gray-400 hover:text-white hover:bg-white/5"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-900/5"
                   }`}
                   onClick={() => {
                     setActiveTab(item.id);
@@ -646,13 +621,44 @@ export default function Portfolio() {
                     }
                   }}
                 >
-                  <item.icon className="mr-2 h-4 w-4" />
+                  <item.icon className="mr-3 h-4 w-4" />
                   {item.label}
                 </Button>
               </motion.li>
             ))}
           </ul>
         </nav>
+        <div className={`pt-6 border-t ${
+          theme === "dark" ? "border-white/5" : "border-gray-900/5"
+        }`}>
+          <div className="grid grid-cols-4 gap-2">
+            {socialLinks.map((link, index) => (
+              <TooltipProvider key={index}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <motion.a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-2 rounded-lg transition-all duration-300 flex items-center justify-center ${
+                        theme === "dark"
+                          ? "hover:bg-white/5 text-gray-400 hover:text-white"
+                          : "hover:bg-gray-900/5 text-gray-600 hover:text-gray-900"
+                      }`}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <link.icon className="h-4 w-4" />
+                    </motion.a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs">{link.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ))}
+          </div>
+        </div>
       </div>
     </ScrollArea>
   );
@@ -660,10 +666,9 @@ export default function Portfolio() {
   return (
     <div
       className={`min-h-screen relative ${
-        theme === "dark" ? "bg-[#0E1116] text-white" : "bg-white text-[#1F2937]"
+        theme === "dark" ? "bg-slate-950 text-white" : "bg-white text-gray-900"
       }`}
     >
-      <ParticleBackground theme={theme === "dark" ? "dark" : "light"} />
       <div className="flex flex-col md:flex-row relative z-10">
         {/* Mobile header */}
         <div className="md:hidden flex justify-between items-center p-4 sticky top-0 z-50 bg-opacity-90 backdrop-blur-sm">
@@ -696,10 +701,10 @@ export default function Portfolio() {
 
         {/* Desktop sidebar */}
         <motion.div
-          className={`hidden md:block w-64 h-screen fixed left-0 top-0 backdrop-blur-xl ${
+          className={`hidden md:block w-64 h-screen fixed left-0 top-0 ${
             theme === "dark"
-              ? "bg-[#161B22]/80 border-r border-[#30363D]/50 shadow-2xl"
-              : "bg-[#F3F4F6]/80 border-r border-[#E5E7EB]/50 shadow-2xl"
+              ? "bg-slate-900/50 border-r border-white/5 backdrop-blur-xl"
+              : "bg-white/50 border-r border-gray-900/5 backdrop-blur-xl"
           }`}
           initial="hidden"
           animate="visible"
@@ -821,7 +826,6 @@ export default function Portfolio() {
         </motion.div>
       </div>
       <ScrollToTop theme={theme === "dark" ? "dark" : "light"} />
-      <CustomCursor theme={theme === "dark" ? "dark" : "light"} />
     </div>
   );
 }
