@@ -145,28 +145,45 @@ const HeroSection: React.FC<HeroSectionProps> = ({ theme, onExploreClick }) => {
           {/* Name with letter reveal */}
           <div className="mb-10 md:mb-12">
             <h1
-              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight leading-none ${
+              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight leading-tight md:leading-none ${
                 theme === "dark" ? "text-white" : "text-gray-900"
               }`}
             >
-              {nameText.split("").map((char, index) => (
-                <motion.span
-                  key={index}
-                  custom={index}
-                  variants={letterVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className={char === " " ? "inline-block w-4" : "inline-block"}
-                  style={{
-                    color: index > 5 ? "transparent" : undefined,
-                    backgroundImage: index > 5 ? "linear-gradient(to right, #007BFF, #00C9FF)" : undefined,
-                    backgroundClip: index > 5 ? "text" : undefined,
-                    WebkitBackgroundClip: index > 5 ? "text" : undefined,
-                  }}
-                >
-                  {char}
-                </motion.span>
-              ))}
+              {/* First Name */}
+              <span className="block md:inline">
+                {"SAKETH ".split("").map((char, index) => (
+                  <motion.span
+                    key={`first-${index}`}
+                    custom={index}
+                    variants={letterVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+          
+              {/* Last Name with Gradient */}
+              <span className="block md:inline">
+                {"YALAMANCHILI".split("").map((char, index) => (
+                  <motion.span
+                    key={`last-${index}`}
+                    custom={index + 7} // Adjust delay for seamless animation
+                    variants={letterVariants}
+                    initial="hidden"
+                    animate="visible"
+                    style={{
+                      color: "transparent",
+                      backgroundImage: "linear-gradient(to right, #007BFF, #00C9FF)",
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
             </h1>
           </div>
 
