@@ -25,6 +25,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ theme, onExploreClick }) => {
   }, []);
 
   // Letter reveal animation for name
+  const nameText = "SAKETH YALAMANCHILI";
   const letterVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: (i: number) => ({
@@ -66,25 +67,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({ theme, onExploreClick }) => {
 
   const viewsCount = useCounter(150);
   const followersCount = useCounter(750);
-  const lensesCount = useCounter(300);
   const gpaCount = useCounter(40) / 10;
 
   const stats = [
     { value: `${viewsCount}B+`, label: "Total Views", delay: 0 },
     { value: `${followersCount}K+`, label: "Followers", delay: 0.1 },
-    { value: `${lensesCount}+`, label: "AR Lenses", delay: 0.2 },
-    { value: gpaCount.toFixed(1), label: "GPA", delay: 0.3 },
+    { value: gpaCount.toFixed(1), label: "GPA", delay: 0.2 },
   ];
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-0">
-      {/* Background matching other sections */}
+      {/* Subtle gradient background */}
       <div className="absolute inset-0">
         <div
           className={`absolute inset-0 transition-all duration-1000 ${
             theme === "dark"
-              ? "bg-[#0E1116]"
-              : "bg-white"
+              ? "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+              : "bg-gradient-to-br from-white via-slate-50 to-white"
           }`}
         />
 
@@ -141,44 +140,31 @@ const HeroSection: React.FC<HeroSectionProps> = ({ theme, onExploreClick }) => {
             Data Scientist • Software Developer • AR Creator
           </motion.p>
 
-          {/* Name with letter reveal - Responsive line breaks */}
+          {/* Name with letter reveal */}
           <div className="mb-10 md:mb-12">
             <h1
-              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight leading-[1.1] ${
+              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight leading-none ${
                 theme === "dark" ? "text-white" : "text-gray-900"
               }`}
             >
-              {/* First name on mobile, full name inline on desktop */}
-              <span className="block md:inline">
-                {"SAKETH".split("").map((char, index) => (
-                  <motion.span
-                    key={index}
-                    custom={index}
-                    variants={letterVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
-              <span className="hidden md:inline"> </span>
-              <br className="md:hidden" />
-              <span className="block md:inline bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
-                {"YALAMANCHILI".split("").map((char, index) => (
-                  <motion.span
-                    key={index + 7}
-                    custom={index + 7}
-                    variants={letterVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
+              {nameText.split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  custom={index}
+                  variants={letterVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className={char === " " ? "inline-block w-4" : "inline-block"}
+                  style={{
+                    color: index > 5 ? "transparent" : undefined,
+                    backgroundImage: index > 5 ? "linear-gradient(to right, #007BFF, #00C9FF)" : undefined,
+                    backgroundClip: index > 5 ? "text" : undefined,
+                    WebkitBackgroundClip: index > 5 ? "text" : undefined,
+                  }}
+                >
+                  {char}
+                </motion.span>
+              ))}
             </h1>
           </div>
 

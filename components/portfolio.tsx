@@ -588,14 +588,14 @@ export default function Portfolio() {
             Saketh Yalamanchili
           </motion.h1>
           <motion.p
-            className={`text-xs font-light text-center px-2 ${
+            className={`text-xs font-light text-center ${
               theme === "dark" ? "text-gray-500" : "text-gray-600"
             }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Data Scientist • Software Developer • AR Creator
+            Master&apos;s Student at FAU
           </motion.p>
         </div>
         <nav className="flex-grow mb-8">
