@@ -28,7 +28,7 @@ import {
   FaKaggle,
   FaSnapchat,
   FaMedium,
-  FaTwitter,
+  FaInstagram,
 } from "react-icons/fa";
 import {
   Tooltip,
@@ -533,11 +533,10 @@ export default function Portfolio() {
       label: "LinkedIn",
     },
     {
-      icon: FaKaggle,
-      href: "https://www.kaggle.com/sakethyalamanchili",
-      label: "Kaggle",
+      icon: FaInstagram,
+      href: "https://www.instagram.com/sakethyalamanchili",
+      label: "Instagram",
     },
-    { icon: Mail, href: "mailto:syalamanchil2025@fau.edu", label: "Email" },
     {
       icon: FaSnapchat,
       href: "https://www.snapchat.com/add/saketh05",
@@ -548,7 +547,12 @@ export default function Portfolio() {
       href: "https://medium.com/@sakethyalamanchili",
       label: "Medium",
     },
-    { icon: FaTwitter, href: "https://x.com/Saketh05_", label: "Twitter" },
+    {
+      icon: FaKaggle,
+      href: "https://www.kaggle.com/sakethyalamanchili",
+      label: "Kaggle",
+    },
+    { icon: Mail, href: "mailto:syalamanchil2025@fau.edu", label: "Email" },
   ];
 
   if (!isClient) {
@@ -591,7 +595,7 @@ export default function Portfolio() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Portfolio 2025
+            Master&apos;s Student at FAU
           </motion.p>
         </div>
         <nav className="flex-grow mb-8">

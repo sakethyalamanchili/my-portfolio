@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, Mail, Award, Eye, Code } from "lucide-react";
+import { Download, Mail, Award, Eye, Code, Users } from "lucide-react";
 import Link from "next/link";
 
 interface AboutProps {
@@ -29,15 +29,16 @@ const About: React.FC<AboutProps> = ({ theme }) => {
 
   const stats = [
     { icon: Eye, value: "150B+", label: "Total Views", color: "from-blue-500 to-cyan-500" },
+    { icon: Users, value: "750K+", label: "Snapchat Followers", color: "from-purple-500 to-pink-500" },
     { icon: Code, value: "300+", label: "AR Lenses", color: "from-cyan-500 to-teal-500" },
     { icon: Award, value: "4.0", label: "GPA", color: "from-teal-500 to-green-500" },
   ];
 
-  const [counters, setCounters] = useState([0, 0, 0]);
+  const [counters, setCounters] = useState([0, 0, 0, 0]);
 
   useEffect(() => {
-    const targets = [150, 300, 4.0];
-    const durations = [2000, 2000, 2000];
+    const targets = [150, 750, 300, 4.0];
+    const durations = [2000, 2000, 2000, 2000];
 
     targets.forEach((target, index) => {
       let start = 0;
@@ -68,7 +69,7 @@ const About: React.FC<AboutProps> = ({ theme }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
       >
         {stats.map((stat, index) => (
           <motion.div
@@ -92,8 +93,10 @@ const About: React.FC<AboutProps> = ({ theme }) => {
               {index === 0
                 ? `${Math.floor(counters[0])}B+`
                 : index === 1
-                ? `${Math.floor(counters[1])}+`
-                : counters[2].toFixed(1)}
+                ? `${Math.floor(counters[1])}K+`
+                : index === 2
+                ? `${Math.floor(counters[2])}+`
+                : counters[3].toFixed(1)}
             </motion.div>
             <p className={`text-sm ${
               theme === "dark" ? "text-gray-400" : "text-gray-600"
@@ -158,8 +161,9 @@ const About: React.FC<AboutProps> = ({ theme }) => {
               <strong>Augmented Reality:</strong> As a freelance{" "}
               {highlightedText("SnapAR Lens Developer")}, I engineered over{" "}
               {highlightedText("300 lenses")} that have collectively generated
-              more than {highlightedText("150 billion views")}, demonstrating my
-              ability to create engaging, viral AR experiences.
+              more than {highlightedText("150 billion views")} and built a community of{" "}
+              {highlightedText("750K+ followers on Snapchat")}, demonstrating my
+              ability to create engaging, viral AR experiences that resonate with millions.
             </li>
           </ul>
         </div>
