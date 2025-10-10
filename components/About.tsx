@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, Mail } from "lucide-react";
@@ -93,9 +92,7 @@ const About: React.FC<AboutProps> = ({ theme }) => {
                 {highlightedText("SnapAR Lens Developer")}, I engineered over{" "}
                 {highlightedText("300 lenses")} that have collectively generated
                 more than {highlightedText("150 billion views")} and built a
-                community of {highlightedText("750K+ followers on Snapchat")},
-                demonstrating my ability to create engaging, viral AR
-                experiences that resonate with millions.
+                community of {highlightedText("750K+ followers on Snapchat")}.
               </li>
             </ul>
           </div>
@@ -114,7 +111,7 @@ const About: React.FC<AboutProps> = ({ theme }) => {
             functional but also intuitive and impactful. This portfolio showcases
             my commitment to that principle. If you&apos;re looking for a{" "}
             {highlightedText("problem-solver")} who combines{" "}
-            {highlightedText("technical depth with a creative and strategic mindset")},
+            {highlightedText("technical depth with creativity")},
             let&apos;s connect.
           </p>
 
