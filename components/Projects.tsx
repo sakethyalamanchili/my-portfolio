@@ -193,26 +193,39 @@ export default function Projects({ theme }: ProjectsProps) {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              whileHover={{
+                scale: 1.05,
+                rotateY: 5,
+                rotateX: 5,
+                z: 50
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              style={{ transformStyle: "preserve-3d" }}
             >
               <Card
-                className={`h-full flex flex-col justify-between ${
+                className={`h-full flex flex-col justify-between overflow-hidden relative group ${
                   theme === "dark"
-                    ? "bg-[#21262D] border-[#30363D] hover:bg-[#2D333B]"
-                    : "bg-white border-[#E5E7EB] hover:bg-gray-50"
-                } transition-colors duration-200`}
+                    ? "bg-gradient-to-br from-[#21262D] to-[#1C2128] border-[#30363D]"
+                    : "bg-gradient-to-br from-white to-gray-50 border-[#E5E7EB]"
+                } transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20`}
               >
-                <CardHeader>
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                  theme === "dark"
+                    ? "bg-gradient-to-br from-blue-600/10 to-cyan-600/10"
+                    : "bg-gradient-to-br from-blue-500/5 to-cyan-500/5"
+                }`} />
+                <CardHeader className="relative z-10">
                   <CardTitle
-                    className={`text-lg font-bold ${
-                      theme === "dark" ? "text-white" : "text-[#1F2937]"
+                    className={`text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r ${
+                      theme === "dark"
+                        ? "from-white to-blue-200"
+                        : "from-[#1F2937] to-blue-600"
                     }`}
                   >
                     {project.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="relative z-10">
                   <p
                     className={`text-sm mb-4 ${
                       theme === "dark" ? "text-[#C9D1D9]" : "text-[#4B5563]"
@@ -224,12 +237,12 @@ export default function Projects({ theme }: ProjectsProps) {
                     {project.technologies.map((tech, idx) => (
                       <motion.span
                         key={idx}
-                        className={`text-xs px-2 py-1 rounded ${
+                        className={`text-xs px-3 py-1.5 rounded-full font-medium ${
                           theme === "dark"
-                            ? "bg-[#30363D] text-[#8B949E]"
-                            : "bg-[#E5E7EB] text-[#4B5563]"
+                            ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-blue-300 border border-blue-500/30"
+                            : "bg-gradient-to-r from-blue-500/10 to-cyan-500/10 text-blue-700 border border-blue-400/30"
                         }`}
-                        whileHover={{ scale: 1.1 }}
+                        whileHover={{ scale: 1.1, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         {tech}
@@ -237,7 +250,7 @@ export default function Projects({ theme }: ProjectsProps) {
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="flex gap-2">
+                <CardFooter className="flex gap-2 relative z-10">
                   {project.github && (
                     <Button
                       variant="outline"

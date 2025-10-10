@@ -49,6 +49,10 @@ const SnapchatFilters = dynamic(() => import("./SnapchatFilters"), {
   ssr: false,
 });
 const Achievements = dynamic(() => import("./Achievements"), { ssr: false });
+const HeroSection = dynamic(() => import("./HeroSection"), { ssr: false });
+const ParticleBackground = dynamic(() => import("./ParticleBackground"), { ssr: false });
+const ScrollToTop = dynamic(() => import("./ScrollToTop"), { ssr: false });
+const CustomCursor = dynamic(() => import("./CustomCursor"), { ssr: false });
 
 interface BlogPost {
   guid: string;
@@ -69,9 +73,10 @@ export default function Portfolio() {
   const [mediumPosts, setMediumPosts] = useState<BlogPost[]>([]);
   const [snapchatFilters, setSnapchatFilters] = useState<SnapchatFilter[]>([]);
   const { theme, setTheme } = useTheme();
-  const [activeTab, setActiveTab] = useState("about");
+  const [activeTab, setActiveTab] = useState("hero");
   const [isClient, setIsClient] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showHero, setShowHero] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
@@ -554,14 +559,15 @@ export default function Portfolio() {
 
   const Sidebar = ({ isMobile = false }) => (
     <ScrollArea className="h-full">
-      <div className="flex flex-col h-full px-4 py-6">
+      <div className="flex flex-col h-full px-4 py-6 backdrop-blur-sm">
         <div className="flex flex-col items-center mb-8">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            whileHover={{ scale: 1.05 }}
           >
-            <Avatar className="w-32 h-32 mb-4">
+            <Avatar className="w-32 h-32 mb-4 ring-4 ring-blue-500/30 ring-offset-4 ring-offset-background">
               <AvatarImage
                 src="https://github.com/sakethyalamanchili.png"
                 alt="Saketh Yalamanchili"
@@ -597,12 +603,12 @@ export default function Portfolio() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-1.5 rounded-full ${
+                    className={`p-1.5 rounded-full transition-all duration-300 ${
                       theme === "dark"
-                        ? "hover:bg-[#21262D]"
-                        : "hover:bg-[#E5E7EB]"
+                        ? "hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-600"
+                        : "hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500"
                     }`}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.2, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                   >
                     <link.icon className="h-4 w-4" />
@@ -653,11 +659,12 @@ export default function Portfolio() {
 
   return (
     <div
-      className={`min-h-screen ${
+      className={`min-h-screen relative ${
         theme === "dark" ? "bg-[#0E1116] text-white" : "bg-white text-[#1F2937]"
       }`}
     >
-      <div className="flex flex-col md:flex-row">
+      <ParticleBackground theme={theme === "dark" ? "dark" : "light"} />
+      <div className="flex flex-col md:flex-row relative z-10">
         {/* Mobile header */}
         <div className="md:hidden flex justify-between items-center p-4 sticky top-0 z-50 bg-opacity-90 backdrop-blur-sm">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -689,10 +696,10 @@ export default function Portfolio() {
 
         {/* Desktop sidebar */}
         <motion.div
-          className={`hidden md:block w-64 h-screen fixed left-0 top-0 ${
+          className={`hidden md:block w-64 h-screen fixed left-0 top-0 backdrop-blur-xl ${
             theme === "dark"
-              ? "bg-[#161B22] border-r border-[#30363D]"
-              : "bg-[#F3F4F6] border-r border-[#E5E7EB]"
+              ? "bg-[#161B22]/80 border-r border-[#30363D]/50 shadow-2xl"
+              : "bg-[#F3F4F6]/80 border-r border-[#E5E7EB]/50 shadow-2xl"
           }`}
           initial="hidden"
           animate="visible"
@@ -740,6 +747,15 @@ export default function Portfolio() {
               exit="hidden"
               variants={tabVariants}
             >
+              {activeTab === "hero" && showHero && (
+                <HeroSection
+                  theme={theme === "dark" ? "dark" : "light"}
+                  onExploreClick={() => {
+                    setActiveTab("about");
+                    setShowHero(false);
+                  }}
+                />
+              )}
               {activeTab === "about" && (
                 <About theme={theme === "dark" ? "dark" : "light"} />
               )}
@@ -804,6 +820,8 @@ export default function Portfolio() {
           </AnimatePresence>
         </motion.div>
       </div>
+      <ScrollToTop theme={theme === "dark" ? "dark" : "light"} />
+      <CustomCursor theme={theme === "dark" ? "dark" : "light"} />
     </div>
   );
 }

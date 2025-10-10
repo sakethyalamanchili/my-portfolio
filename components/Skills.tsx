@@ -142,14 +142,16 @@ export default function Skills({ theme }: SkillsProps) {
 
   return (
     <Card
-      className={`${
+      className={`backdrop-blur-sm ${
         theme === "dark"
-          ? "bg-[#161B22] border-[#30363D]"
-          : "bg-white border-[#E5E7EB]"
+          ? "bg-[#161B22]/80 border-[#30363D] shadow-xl"
+          : "bg-white/80 border-[#E5E7EB] shadow-xl"
       }`}
     >
       <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-        <CardTitle className="text-2xl font-bold">Skills</CardTitle>
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+          Skills
+        </CardTitle>
         <Select onValueChange={setSelectedCategory} defaultValue="All">
           <SelectTrigger className="w-full sm:w-[180px] focus:ring-0 focus:ring-offset-0">
             <SelectValue placeholder="Select category" />
@@ -179,28 +181,51 @@ export default function Skills({ theme }: SkillsProps) {
                 key={skill.name}
                 variants={itemVariants}
                 layout
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.08, y: -5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className={`p-4 rounded-xl border backdrop-blur-sm ${
+                  theme === "dark"
+                    ? "bg-gradient-to-br from-[#21262D]/60 to-[#1C2128]/60 border-[#30363D] hover:border-blue-500/50"
+                    : "bg-gradient-to-br from-white/60 to-gray-50/60 border-[#E5E7EB] hover:border-blue-400/50"
+                } transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20`}
               >
-                <div
-                  className={`text-sm font-medium mb-1 ${
-                    theme === "dark" ? "text-white" : "text-[#1F2937]"
-                  }`}
-                >
-                  {skill.name}
+                <div className="flex justify-between items-center mb-2">
+                  <div
+                    className={`text-sm font-semibold ${
+                      theme === "dark" ? "text-white" : "text-[#1F2937]"
+                    }`}
+                  >
+                    {skill.name}
+                  </div>
+                  <div className="text-xs font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+                    {skill.level}%
+                  </div>
                 </div>
                 <div className="relative pt-1">
                   <div
-                    className={`overflow-hidden h-2 text-xs flex rounded ${
+                    className={`overflow-hidden h-2.5 text-xs flex rounded-full ${
                       theme === "dark" ? "bg-[#30363D]" : "bg-[#E5E7EB]"
                     }`}
                   >
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${skill.level}%` }}
-                      transition={{ duration: 0.5, ease: "easeInOut" }}
-                      className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
-                    />
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 rounded-full relative overflow-hidden"
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-white/30"
+                        animate={{
+                          x: ["-100%", "100%"],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        style={{ width: "50%" }}
+                      />
+                    </motion.div>
                   </div>
                 </div>
               </motion.div>

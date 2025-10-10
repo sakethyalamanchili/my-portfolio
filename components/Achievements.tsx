@@ -104,18 +104,14 @@ const itemVariants = {
 export default function Achievements({ theme }: AchievementsProps) {
   return (
     <Card
-      className={`${
+      className={`backdrop-blur-sm ${
         theme === "dark"
-          ? "bg-[#161B22] border-[#30363D]" // Dark mode styles
-          : "bg-white border-[#E5E7EB]" // Light mode background and border
+          ? "bg-[#161B22]/80 border-[#30363D] shadow-xl"
+          : "bg-white/80 border-[#E5E7EB] shadow-xl"
       }`}
     >
       <CardHeader>
-        <CardTitle
-          className={`text-2xl font-bold ${
-            theme === "dark" ? "text-white" : "text-gray-900" // Text color based on theme
-          }`}
-        >
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
           Achievements
         </CardTitle>
       </CardHeader>

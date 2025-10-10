@@ -44,14 +44,16 @@ const itemVariants = {
 export default function Education({ theme }: EducationProps) {
   return (
     <Card
-      className={`${
+      className={`backdrop-blur-sm ${
         theme === "dark"
-          ? "bg-[#161B22] border-[#30363D]"
-          : "bg-white border-[#E5E7EB]"
+          ? "bg-[#161B22]/80 border-[#30363D] shadow-xl"
+          : "bg-white/80 border-[#E5E7EB] shadow-xl"
       }`}
     >
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Education</CardTitle>
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+          Education
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <motion.div
@@ -64,15 +66,20 @@ export default function Education({ theme }: EducationProps) {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.03, x: 10 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className="flex items-center space-x-4"
+              className={`flex items-center space-x-4 p-6 rounded-xl border backdrop-blur-sm ${
+                theme === "dark"
+                  ? "bg-gradient-to-br from-[#21262D]/60 to-[#1C2128]/60 border-[#30363D] hover:border-blue-500/50"
+                  : "bg-gradient-to-br from-white/60 to-gray-50/60 border-[#E5E7EB] hover:border-blue-400/50"
+              } transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20`}
             >
-              {/* Display the logo with adjusted styling */}
-              <img
+              <motion.img
                 src={item.logo}
                 alt={`${item.school} logo`}
-                className="h-10 w-10 object-contain" // Adjusted size
+                className="h-14 w-14 object-contain rounded-full p-2 bg-white/10 backdrop-blur-sm"
+                whileHover={{ scale: 1.2, rotate: 360 }}
+                transition={{ duration: 0.5 }}
               />
               <div>
                 <h3
