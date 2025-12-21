@@ -4045,11 +4045,11 @@ export default function Photography({ theme }: PhotographyProps) {
 
   // Filter and sort photos
   const processedPhotos = useMemo(() => {
-    let filtered = selectedCategory === "All"
+    const filtered = selectedCategory === "All"
       ? myPhotos
-      : myPhotos.filter(photo => photo.category === selectedCategory); // Changed let to const
+      : myPhotos.filter(photo => photo.category === selectedCategory);
 
-    const sorted = [...filtered].sort((a, b) => { // filtered is not reassigned, so const is correct
+    const sorted = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case "newest":
           return parseInt(b.id) - parseInt(a.id);
