@@ -55,9 +55,9 @@ const achievements = [
   },
   {
     icon: Rocket,
-    title: "Hackathon Success - AllofUS",
+    title: "Hackathon Success",
     description:
-      "Led Team DECODE in FAU's Data Engineering Hackathon for Precision Medicine, developing AI-driven web application for early Chronic Kidney Disease detection, processing 20M+ real-time data points.",
+      "Led Team DECODE in FAU's Data Engineering Hackathon for Precision Medicine, developing AI-driven CKD detection processing 20M+ data points. Also led team of 3 in FAU's Agentic AI Hackathon, building CareGuide—a multi-agent healthcare AI system with HIPAA-aligned processing and RAG-grounded recommendations.",
     category: "Competition",
     gradient: "from-green-500 to-teal-500",
   },

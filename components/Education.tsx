@@ -25,12 +25,12 @@ const educationItems = [
       "Dean's List all semesters"
     ],
     relevantCoursework: [
-      "Reinforcement Learning (CAP 6629)",
+      "Intro to Data Science (CAP 5768)",
+      "Intro to Business Analytics with Big Data (ISM 6404)",
       "Data Mining & Machine Learning (CAP 6673)",
-      "Business Analytics (ISM 6404)",
-      "Deep Learning & Neural Networks",
-      "Big Data Technologies",
-      "Statistical Methods for Data Science"
+      "Deep Learning (CAP 6619)",
+      "Natural Language Processing (CAP 6640)",
+      "Reinforcement Learning (CAP 6629)"
     ],
     gradient: "from-blue-500 to-cyan-500",
   },  

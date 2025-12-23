@@ -10,7 +10,7 @@ import {
   Calendar,
   ArrowUpRight,
   BookOpen,
-  TrendingUp,
+  // TrendingUp removed as it's no longer used
 } from "lucide-react";
 
 interface BlogPost {
@@ -96,7 +96,7 @@ export default function BlogPosts({ posts, theme }: BlogPostsProps) {
           animate="visible"
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {currentPosts.map((post, index) => (
+          {currentPosts.map((post) => ( // Removed unused 'index' parameter here
             <motion.div
               key={post.guid}
               variants={itemVariants}
@@ -117,18 +117,7 @@ export default function BlogPosts({ posts, theme }: BlogPostsProps) {
 
                 <div className="relative z-10">
                   <CardHeader>
-                    {/* Badge for recent posts */}
-                    {index < 3 && (
-                      <motion.div
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white mb-3 w-fit"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        <TrendingUp className="w-3 h-3" />
-                        Latest
-                      </motion.div>
-                    )}
+                    {/* REMOVED: Badge for recent posts section */}
 
                     <CardTitle
                       className={`text-base md:text-lg font-bold leading-tight mb-3 line-clamp-3 group-hover:text-blue-500 transition-colors ${

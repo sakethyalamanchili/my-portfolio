@@ -19,7 +19,7 @@ const About: React.FC<AboutProps> = ({ theme }) => {
   );
 
   const resumeLink =
-    "https://drive.google.com/file/d/1GH7GLGSVvsycLBV3GupoFrb6_8Aj4r9c/view?usp=drive_link";
+    "https://drive.google.com/file/d/1cwJz2ClHNJeBsl0sy3mzU_avh4LtTyXU/view?usp=drive_link";
   const hireEmail =
     "mailto:syalamanchil2025@fau.edu?subject=Job%20Opportunity&body=Hello%20Saketh,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20I'm%20interested%20in%20discussing%20a%20potential%20job%20opportunity%20with%20you.";
 
@@ -48,10 +48,10 @@ const About: React.FC<AboutProps> = ({ theme }) => {
   ];
 
   const skills = [
-    { category: "Languages", items: "Python, JavaScript/TypeScript, SQL, C++, LaTeX" },
-    { category: "AI/ML", items: "PyTorch, AutoGen, CrewAI, Reinforcement Learning, RAG" },
+    { category: "Languages", items: "Python, JavaScript/TypeScript, SQL, C, C++, LaTeX" },
+    { category: "AI/ML", items: "PyTorch, Tensorflow, Reinforcement Learning, RAG" },
     { category: "Web", items: "React, Next.js, Node.js, Tailwind CSS, Streamlit" },
-    { category: "Tools", items: "Git, Docker, AWS, Power BI, Tableau" },
+    { category: "Tools", items: "Git, Power BI, Tableau" },
   ];
 
   const containerVariants = {
@@ -128,7 +128,7 @@ const About: React.FC<AboutProps> = ({ theme }) => {
             }`}
           >
             <p className="text-base md:text-lg leading-relaxed font-medium">
-              Data Science Master&apos;s candidate at Florida Atlantic University with a proven track record in {highlightedText("Agentic AI")} and {highlightedText("Full-Stack Development")}. 
+              Data Science Master&apos;s candidate at Florida Atlantic University with a proven track record in {highlightedText("Electronics")}, {highlightedText("Agentic AI")} and {highlightedText("Full-Stack Development")}. 
               Currently serving as a Graduate Research Assistant for the VIP Program, bridging the gap between academic research and real-world application. 
               Passionate about building intelligent systems, evidenced by winning hackathon projects and a portfolio of AR experiences reaching {highlightedText("billions of users")}.
             </p>
