@@ -1,11 +1,8 @@
-import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion } from "framer-motion";
-import { Briefcase, TrendingUp, Users, Code, Award, Rocket } from "lucide-react";
+"use client";
 
-interface ExperienceProps {
-  theme: "light" | "dark";
-}
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { Award, Code, Rocket, Users } from "lucide-react";
 
 const experienceItems = [
   {
@@ -15,19 +12,13 @@ const experienceItems = [
     location: "Boca Raton, FL",
     type: "Academic Research",
     responsibilities: [
-      "Spearheading the launch and development of the Vertically Integrated Projects (VIP) program, establishing frameworks for interdisciplinary AI and Data Science research initiatives",
-      "Mentoring and guiding graduate and undergraduate students in advanced machine learning concepts, research methodologies, and project execution",
-      "Developing comprehensive educational resources, curriculum materials, and technical documentation to support student learning and research excellence",
-      "Building collaborative bridges between academic research and industry applications, fostering innovation through cross-disciplinary partnerships",
-      "Leading community-building initiatives that connect peer mentors, students, and faculty across diverse research teams"
+      "Spearheading the Vertically Integrated Projects (VIP) program for AI and Data Science research",
+      "Mentoring graduate and undergraduate students in ML concepts and research methodologies",
+      "Developing educational resources and technical documentation for student learning",
+      "Building collaborative bridges between academic research and industry applications",
     ],
-    achievements: [
-      "Successfully onboarded first cohort of VIP students",
-      "Established systematic mentorship framework",
-      "Created comprehensive research resource library"
-    ],
+    achievements: ["First cohort onboarded", "Mentorship framework established", "Research resource library created"],
     icon: Award,
-    gradient: "from-blue-500 to-cyan-500",
   },
   {
     title: "Software Developer Intern",
@@ -36,19 +27,13 @@ const experienceItems = [
     location: "Hyderabad, India",
     type: "Software Engineering",
     responsibilities: [
-      "Architected and deployed multi-language support system for enterprise HMS & HRMS applications, resulting in 20% increase in user engagement and expanding global market reach",
-      "Designed and implemented robust session management infrastructure with secure token-based authentication, reducing unauthorized access incidents by 15%",
-      "Developed and integrated AI-powered customer support chatbot using PyTorch for Learning Management System, achieving 50% reduction in query response times",
-      "Collaborated with cross-functional teams to deliver scalable, production-ready features while maintaining high code quality standards",
-      "Optimized application performance through code refactoring and implementation of best practices"
+      "Architected multi-language support for enterprise HMS & HRMS applications (+20% engagement)",
+      "Implemented secure session management with token-based authentication (-15% security incidents)",
+      "Developed AI-powered chatbot using PyTorch for LMS (-50% query response times)",
+      "Collaborated with cross-functional teams to deliver scalable, production-ready features",
     ],
-    achievements: [
-      "20% increase in user engagement",
-      "15% reduction in security incidents",
-      "50% faster customer support response times"
-    ],
+    achievements: ["20% engagement increase", "15% fewer security incidents", "50% faster support"],
     icon: Code,
-    gradient: "from-purple-500 to-pink-500",
   },
   {
     title: "Freelance AR Lens Developer",
@@ -57,19 +42,13 @@ const experienceItems = [
     location: "Remote",
     type: "Creative Technology",
     responsibilities: [
-      "Engineered 300+ innovative augmented reality lenses for Snapchat platform, collectively generating over 150 billion views and establishing significant digital presence",
-      "Built and cultivated engaged community of 750,000+ followers through consistent delivery of high-quality, trending AR experiences",
-      "Collaborated with international content creators and brands on custom AR filter development, delivering creative solutions aligned with marketing objectives",
-      "Mastered Lens Studio platform and continuously adapted to evolving AR technologies and user preferences",
-      "Analyzed user engagement metrics and feedback to iterate and optimize lens performance"
+      "Engineered 300+ AR lenses generating over 150 billion views on Snapchat",
+      "Built community of 750,000+ followers through high-quality AR experiences",
+      "Collaborated with international creators and brands on custom AR development",
+      "Analyzed engagement metrics to optimize lens performance and reach",
     ],
-    achievements: [
-      "150+ billion total views across all lenses",
-      "750K+ organic followers gained",
-      "Top-performing creator in multiple AR categories"
-    ],
+    achievements: ["150B+ total views", "750K+ followers", "Top creator status"],
     icon: Rocket,
-    gradient: "from-orange-500 to-red-500",
   },
   {
     title: "Private Tutor",
@@ -78,200 +57,110 @@ const experienceItems = [
     location: "Hyderabad, India",
     type: "Education",
     responsibilities: [
-      "Provided personalized one-on-one tutoring in Mathematics, Science, and Social Studies, adapting teaching methods to individual student learning styles",
-      "Developed customized lesson plans and learning materials targeting specific knowledge gaps and academic challenges",
-      "Tracked student progress through regular assessments and adjusted teaching strategies to optimize learning outcomes",
-      "Achieved significant grade improvements across all students, with average grade increase of 15-20%"
+      "Provided personalized tutoring in Mathematics, Science, and Social Studies",
+      "Developed customized lesson plans targeting specific knowledge gaps",
+      "Achieved 15-20% average grade improvement across all students",
     ],
-    achievements: [
-      "100% student satisfaction rate",
-      "Average 15-20% grade improvement",
-      "Multiple students achieved honor roll status"
-    ],
+    achievements: ["100% satisfaction rate", "15-20% grade improvement", "Multiple honor roll students"],
     icon: Users,
-    gradient: "from-green-500 to-teal-500",
-  }
+  },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
+export function ExperienceSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: "spring", stiffness: 100 },
-  },
-};
-
-export default function Experience({ theme }: ExperienceProps) {
   return (
-    <Card
-      className={`backdrop-blur-sm ${
-        theme === "dark"
-          ? "bg-[#161B22]/80 border-[#30363D] shadow-xl"
-          : "bg-white/80 border-[#E5E7EB] shadow-xl"
-      }`}
-    >
-      <CardHeader>
-        <CardTitle className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-          <Briefcase className="w-7 h-7 text-blue-500" />
-          <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 bg-clip-text text-transparent">
-            Professional Experience
-          </span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
+    <section id="experience" ref={ref} className="py-24 md:py-32 px-6 bg-secondary/30">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-6"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          {experienceItems.map((item, index) => {
-            const IconComponent = item.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02, x: 10 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className={`p-6 rounded-xl border backdrop-blur-sm relative overflow-hidden ${
-                  theme === "dark"
-                    ? "bg-gradient-to-br from-[#21262D]/60 to-[#1C2128]/60 border-[#30363D] hover:border-blue-500/50"
-                    : "bg-gradient-to-br from-white/60 to-gray-50/60 border-[#E5E7EB] hover:border-blue-400/50"
-                } transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20`}
-              >
-                {/* Background gradient on hover */}
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 hover:opacity-5 transition-opacity duration-300`}
-                />
+          <h2 className="text-sm tracking-[0.2em] uppercase text-primary mb-4">
+            Experience
+          </h2>
+          <p className="text-3xl md:text-4xl font-bold text-foreground">
+            Professional Journey
+          </p>
+        </motion.div>
 
-                <div className="relative z-10">
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-4 flex-wrap gap-2">
-                    <div className="flex items-start gap-3 flex-1">
-                      <motion.div
-                        className={`p-3 rounded-lg bg-gradient-to-r ${item.gradient}`}
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <IconComponent className="w-5 h-5 text-white" />
-                      </motion.div>
-                      <div className="flex-1">
-                        <h3
-                          className={`text-lg md:text-xl font-semibold mb-1 ${
-                            theme === "dark" ? "text-white" : "text-[#1F2937]"
-                          }`}
-                        >
-                          {item.title}
-                        </h3>
-                        <p
-                          className={`text-sm font-medium ${
-                            theme === "dark" ? "text-blue-300" : "text-blue-600"
-                          }`}
-                        >
-                          {item.company}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p
-                        className={`text-sm font-medium ${
-                          theme === "dark" ? "text-[#8B949E]" : "text-[#6B7280]"
-                        }`}
-                      >
-                        {item.period}
-                      </p>
-                      <p
-                        className={`text-xs ${
-                          theme === "dark" ? "text-[#8B949E]" : "text-[#6B7280]"
-                        }`}
-                      >
-                        {item.location}
-                      </p>
-                    </div>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2 hidden md:block" />
+
+          <div className="space-y-12">
+            {experienceItems.map((item, index) => {
+              const IconComponent = item.icon;
+              const isEven = index % 2 === 0;
+
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  className={`relative md:w-1/2 ${isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:ml-auto"}`}
+                >
+                  {/* Timeline dot */}
+                  <div className={`absolute top-0 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-card border-2 border-primary ${isEven ? "-right-6" : "-left-6"}`}>
+                    <IconComponent className="w-5 h-5 text-primary" />
                   </div>
 
-                  {/* Type Badge */}
-                  <div className="mb-4">
-                    <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                        theme === "dark"
-                          ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                          : "bg-blue-500/10 text-blue-700 border border-blue-400/30"
-                      }`}
-                    >
+                  {/* Card */}
+                  <div className="p-6 md:p-8 rounded-3xl bg-card border border-border hover:border-primary/30 transition-all duration-300">
+                    {/* Mobile icon */}
+                    <div className="md:hidden w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                      <IconComponent className="w-5 h-5 text-primary" />
+                    </div>
+
+                    {/* Type badge */}
+                    <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary mb-4">
                       {item.type}
                     </span>
-                  </div>
 
-                  {/* Responsibilities */}
-                  <div className="mb-4">
-                    <h4
-                      className={`text-sm font-semibold mb-3 flex items-center gap-2 ${
-                        theme === "dark" ? "text-white" : "text-[#1F2937]"
-                      }`}
-                    >
-                      <Code className="w-4 h-4 text-blue-500" />
-                      Key Responsibilities
-                    </h4>
-                    <ul className="space-y-2">
-                      {item.responsibilities.map((responsibility, idx) => (
-                        <motion.li
+                    <h3 className="text-xl font-semibold text-foreground mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-primary font-medium mb-2">{item.company}</p>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {item.period} / {item.location}
+                    </p>
+
+                    {/* Responsibilities */}
+                    <ul className={`space-y-2 mb-6 ${isEven ? "md:text-right" : ""}`}>
+                      {item.responsibilities.map((resp, idx) => (
+                        <li
                           key={idx}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: idx * 0.1 }}
-                          className={`text-sm flex items-start gap-2 ${
-                            theme === "dark" ? "text-[#C9D1D9]" : "text-[#4B5563]"
-                          }`}
+                          className="text-sm text-muted-foreground leading-relaxed"
                         >
-                          <span className="text-blue-500 mt-1">▹</span>
-                          <span className="flex-1">{responsibility}</span>
-                        </motion.li>
+                          {resp}
+                        </li>
                       ))}
                     </ul>
-                  </div>
 
-                  {/* Achievements */}
-                  <div className={`pt-4 border-t ${
-                    theme === "dark" ? "border-[#30363D]" : "border-[#E5E7EB]"
-                  }`}>
-                    <h4
-                      className={`text-sm font-semibold mb-3 flex items-center gap-2 ${
-                        theme === "dark" ? "text-white" : "text-[#1F2937]"
-                      }`}
-                    >
-                      <TrendingUp className="w-4 h-4 text-green-500" />
-                      Key Achievements
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
+                    {/* Achievements */}
+                    <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : ""}`}>
                       {item.achievements.map((achievement, idx) => (
-                        <motion.span
+                        <span
                           key={idx}
-                          className={`inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium ${
-                            theme === "dark"
-                              ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                              : "bg-green-500/10 text-green-700 border border-green-400/30"
-                          }`}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
+                          className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-foreground"
                         >
-                          ✓ {achievement}
-                        </motion.span>
+                          {achievement}
+                        </span>
                       ))}
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </CardContent>
-    </Card>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

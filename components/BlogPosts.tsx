@@ -1,263 +1,139 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Card, CardHeader, CardTitle, CardFooter, CardContent } from "@/components/ui/card";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { ExternalLink, Clock, ArrowUpRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Calendar,
-  ArrowUpRight,
-  BookOpen,
-  // TrendingUp removed as it's no longer used
-} from "lucide-react";
+import Link from "next/link";
 
-interface BlogPost {
-  guid: string;
+interface MediumPost {
   title: string;
   pubDate: string;
   link: string;
+  guid: string;
+  thumbnail: string;
+  description: string;
+  categories: string[];
 }
 
-interface BlogPostsProps {
-  posts: BlogPost[];
-  theme: "light" | "dark";
-}
+export function BlogSection() {
+  const [posts, setPosts] = useState<MediumPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(
+          "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@sakethyalamanchili"
+        );
+        const data = await response.json();
+        if (data.status === "ok") {
+          // Only take the latest 6 posts
+          setPosts(data.items.slice(0, 6));
+        }
+      } catch (error) {
+        console.error("Error fetching Medium posts:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: "spring", stiffness: 100 },
-  },
-};
+    fetchPosts();
+  }, []);
 
-const postsPerPage = 6;
-
-export default function BlogPosts({ posts, theme }: BlogPostsProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const sortedPosts = [...posts].sort(
-    (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
-  );
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    });
+  const getCleanDescription = (htmlSnippet: string) => {
+    const text = htmlSnippet.replace(/<[^>]*>?/gm, ''); 
+    return text.slice(0, 120) + "...";
   };
 
   return (
-    <Card
-      className={`backdrop-blur-sm ${
-        theme === "dark"
-          ? "bg-[#161B22]/80 border-[#30363D] shadow-xl"
-          : "bg-white/80 border-[#E5E7EB] shadow-xl"
-      }`}
-    >
-      <CardHeader>
-        <div className="flex flex-col gap-2">
-          {/* UPDATED TITLE SECTION WITH UNIFIED GRADIENT (Blue -> Cyan -> Purple) */}
-          <CardTitle className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-            <BookOpen className="w-7 h-7 text-blue-500" />
-            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 bg-clip-text text-transparent">
-              Latest Articles
-            </span>
-          </CardTitle>
-          <p className={`text-sm ${
-            theme === "dark" ? "text-gray-400" : "text-gray-600"
-          }`}>
-            Insights on data science, machine learning, and technology
-          </p>
-        </div>
-      </CardHeader>
-
-      <CardContent>
+    <section id="blog" ref={ref} className="py-24 md:py-32 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          {currentPosts.map((post) => ( // Removed unused 'index' parameter here
-            <motion.div
-              key={post.guid}
-              variants={itemVariants}
-              whileHover={{ scale: 1.03, y: -5 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            >
-              <Card
-                className={`h-full flex flex-col justify-between group relative overflow-hidden ${
-                  theme === "dark"
-                    ? "bg-gradient-to-br from-[#21262D] to-[#1C2128] border-[#30363D] hover:border-blue-500/50"
-                    : "bg-gradient-to-br from-white to-gray-50 border-[#E5E7EB] hover:border-blue-400/50"
-                } transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20`}
-              >
-                {/* Gradient overlay on hover */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-
-                <div className="relative z-10">
-                  <CardHeader>
-                    {/* REMOVED: Badge for recent posts section */}
-
-                    <CardTitle
-                      className={`text-base md:text-lg font-bold leading-tight mb-3 line-clamp-3 group-hover:text-blue-500 transition-colors ${
-                        theme === "dark" ? "text-white" : "text-[#1F2937]"
-                      }`}
-                    >
-                      {post.title}
-                    </CardTitle>
-                    
-                    <div
-                      className={`flex items-center text-sm ${
-                        theme === "dark" ? "text-[#8B949E]" : "text-[#6B7280]"
-                      }`}
-                    >
-                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
-                      <time dateTime={post.pubDate}>{formatDate(post.pubDate)}</time>
-                    </div>
-                  </CardHeader>
-
-                  <CardContent>
-                    <div className={`text-sm ${
-                      theme === "dark" ? "text-[#C9D1D9]" : "text-[#4B5563]"
-                    }`}>
-                      <p className="line-clamp-2">
-                        Click to read the full article on Medium and explore insights about technology, data science, and development.
-                      </p>
-                    </div>
-                  </CardContent>
-
-                  <CardFooter className="mt-auto p-4">
-                    <Button
-                      variant="outline"
-                      asChild
-                      className={`w-full py-2 group/button ${
-                        theme === "dark"
-                          ? "bg-[#30363D] text-white hover:bg-[#3C444D] border-[#30363D] hover:border-blue-500"
-                          : "bg-white text-[#1F2937] hover:bg-[#F3F4F6] border-gray-300 hover:border-blue-500"
-                      } transition-all duration-200`}
-                    >
-                      <a
-                        href={post.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2"
-                      >
-                        Read Article
-                        <ArrowUpRight className="w-4 h-4 group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5 transition-transform" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+          <h2 className="text-sm tracking-[0.2em] uppercase text-primary mb-4">
+            Blog
+          </h2>
+          <p className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Latest Thoughts
+          </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Automatically synced from Medium — writing about AI, AR development, and Data Science.
+          </p>
         </motion.div>
 
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="flex flex-col sm:flex-row justify-center items-center mt-8 space-y-4 sm:space-y-0">
-            <div className="flex items-center space-x-2">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className={`px-4 py-2 ${
-                    theme === "dark"
-                      ? "bg-[#30363D] text-white hover:bg-[#3C444D] disabled:opacity-50"
-                      : "bg-white text-[#1F2937] hover:bg-[#F3F4F6] disabled:opacity-50"
-                  } transition-colors duration-200`}
-                >
-                  <ChevronLeft className="h-4 w-4 mr-1" />
-                  Previous
-                </Button>
-              </motion.div>
-              
-              <span
-                className={`text-sm px-4 font-medium ${
-                  theme === "dark" ? "text-white" : "text-[#1F2937]"
-                }`}
+        {isLoading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {posts.map((post, index) => (
+              <motion.article
+                key={post.guid}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                Page {currentPage} of {totalPages}
-              </span>
-              
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className={`px-4 py-2 ${
-                    theme === "dark"
-                      ? "bg-[#30363D] text-white hover:bg-[#3C444D] disabled:opacity-50"
-                      : "bg-white text-[#1F2937] hover:bg-[#F3F4F6] disabled:opacity-50"
-                  } transition-colors duration-200`}
+                <Link
+                  href={post.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block p-6 rounded-3xl bg-card border border-border hover:border-primary/30 transition-all duration-300 h-full flex flex-col"
                 >
-                  Next
-                  <ChevronRight className="h-4 w-4 ml-1" />
-                </Button>
-              </motion.div>
-            </div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                      {post.categories[0] || "Article"}
+                    </span>
+                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </div>
+
+                  <h3 className="text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                    {post.title}
+                  </h3>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-grow">
+                    {getCleanDescription(post.description)}
+                  </p>
+
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground mt-auto">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4" />
+                      {Math.ceil(post.description.split(' ').length / 200)} min read
+                    </span>
+                    <span>{new Date(post.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+                  </div>
+                </Link>
+              </motion.article>
+            ))}
           </div>
         )}
 
-        {/* Stats Footer */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className={`mt-8 p-6 rounded-xl border ${
-            theme === "dark"
-              ? "bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/30"
-              : "bg-gradient-to-r from-blue-50 to-purple-50 border-blue-300/30"
-          }`}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-center"
         >
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
-            <div>
-              <div className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                {sortedPosts.length}
-              </div>
-              <div className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                Published Articles
-              </div>
-            </div>
-            <div>
-              <div className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                Medium
-              </div>
-              <div className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                Platform
-              </div>
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <div className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                Tech & Data
-              </div>
-              <div className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                Topics Covered
-              </div>
-            </div>
-          </div>
+          <Button variant="outline" size="lg" className="rounded-full bg-transparent" asChild>
+            <Link
+              href="https://medium.com/@sakethyalamanchili"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Read all on Medium
+            </Link>
+          </Button>
         </motion.div>
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 }

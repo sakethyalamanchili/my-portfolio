@@ -1,356 +1,140 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Code, Database, Globe, PenTool, Zap, Star, Cpu } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
-interface Skill {
-  name: string;
-  level: number;
-  proficiency: "Expert" | "Advanced" | "Intermediate";
-}
-
-interface SkillCategory {
-  name: string;
-  icon: React.ElementType; // Changed from any to React.ElementType
-  gradient: string;
-  skills: Skill[];
-}
-
-interface SkillsProps {
-  theme: "light" | "dark";
-}
-
-const skillCategories: SkillCategory[] = [
+const skillCategories = [
   {
-    name: "Data Science & AI",
-    icon: Zap,
-    gradient: "from-purple-500 to-pink-500",
+    title: "AI & Generative AI",
     skills: [
-      { name: "Python", level: 90, proficiency: "Expert" },
-      { name: "Machine Learning", level: 85, proficiency: "Advanced" },
-      { name: "Scikit-learn", level: 85, proficiency: "Advanced" },
-      { name: "Data Analysis", level: 85, proficiency: "Advanced" },
-      { name: "SQL", level: 80, proficiency: "Advanced" },
-      { name: "Deep Learning", level: 80, proficiency: "Advanced" },
-      { name: "Research", level: 80, proficiency: "Advanced" },
-      { name: "Natural Language Processing", level: 75, proficiency: "Intermediate" },
-      { name: "Computer Vision", level: 75, proficiency: "Intermediate" },
-      { name: "TensorFlow", level: 75, proficiency: "Intermediate" },
-      { name: "Keras", level: 75, proficiency: "Intermediate" },
-      { name: "PyTorch", level: 70, proficiency: "Intermediate" },
-      { name: "Weka", level: 90, proficiency: "Expert" },
+      { name: "Python", level: 95 },
+      { name: "Llama-Index", level: 90 },
+      { name: "LangChain", level: 90 },
+      { name: "Machine Learning (Scikit-learn)", level: 85 },
+      { name: "Deep Learning (TF/Keras)", level: 80 },
+      { name: "PyTorch", level: 75 },
     ],
   },
   {
-    name: "Web Development",
-    icon: Globe,
-    gradient: "from-blue-500 to-cyan-500",
+    title: "Data Science & Analytics",
     skills: [
-      { name: "HTML", level: 85, proficiency: "Advanced" },
-      { name: "CSS", level: 80, proficiency: "Advanced" },
-      { name: "JavaScript", level: 80, proficiency: "Advanced" },
-      { name: "React", level: 80, proficiency: "Advanced" },
-      { name: "Bootstrap", level: 80, proficiency: "Advanced" },
-      { name: "Cloudinary", level: 80, proficiency: "Advanced" },
-      { name: "TypeScript", level: 75, proficiency: "Intermediate" },
-      { name: "Angular", level: 75, proficiency: "Intermediate" },
-      { name: "Tailwind CSS", level: 75, proficiency: "Intermediate" },
+      { name: "Pandas & NumPy", level: 95 },
+      { name: "Weka", level: 90 },
+      { name: "SQL", level: 85 },
+      { name: "Data Analysis", level: 85 },
+      { name: "Power BI / Tableau", level: 80 },
+      { name: "NLP & Research", level: 80 },
     ],
   },
   {
-    name: "Analytics & Libraries",
-    icon: Database,
-    gradient: "from-green-500 to-teal-500",
+    title: "Web Development",
     skills: [
-      { name: "Pandas", level: 90, proficiency: "Expert" },
-      { name: "NumPy", level: 85, proficiency: "Advanced" },
-      { name: "Excel", level: 85, proficiency: "Advanced" },
-      { name: "Power BI", level: 85, proficiency: "Advanced" },
-      { name: "Matplotlib", level: 80, proficiency: "Advanced" },
-      { name: "Seaborn", level: 80, proficiency: "Advanced" },
-      { name: "Tableau", level: 80, proficiency: "Advanced" },
+      { name: "React / Angular", level: 85 },
+      { name: "JavaScript / TypeScript", level: 85 },
+      { name: "HTML / CSS / Tailwind", level: 90 },
+      { name: "Cloudinary", level: 80 },
+      { name: "Bootstrap", level: 80 },
+      { name: "REST APIs (Swagger)", level: 75 },
     ],
   },
   {
-    name: "Electronics & IoT",
-    icon: Cpu,
-    gradient: "from-orange-500 to-red-500",
+    title: "Electronics & Creative Tech",
     skills: [
-      { name: "Microcontrollers", level: 85, proficiency: "Advanced" },
-      { name: "Arduino", level: 85, proficiency: "Advanced" },
-      { name: "Embedded Systems", level: 80, proficiency: "Advanced" },
-      { name: "Internet of Things", level: 80, proficiency: "Advanced" },
-      { name: "Signal Processing", level: 75, proficiency: "Intermediate" },
-    ],
-  },
-  {
-    name: "Tools & Environments",
-    icon: PenTool,
-    gradient: "from-yellow-500 to-orange-500",
-    skills: [
-      { name: "Git", level: 85, proficiency: "Advanced" },
-      { name: "GitHub", level: 85, proficiency: "Advanced" },
-      { name: "VS Code", level: 85, proficiency: "Advanced" },
-      { name: "Jupyter", level: 85, proficiency: "Advanced" },
-      { name: "Google Colab", level: 85, proficiency: "Advanced" },
-      { name: "PyCharm", level: 80, proficiency: "Advanced" },
-      { name: "Streamlit", level: 80, proficiency: "Advanced" },
-      { name: "Spyder", level: 75, proficiency: "Intermediate" },
-      { name: "Swagger", level: 70, proficiency: "Intermediate" },
-      { name: "phpMyAdmin", level: 70, proficiency: "Intermediate" },
-    ],
-  },
-  {
-    name: "General & AR",
-    icon: Code,
-    gradient: "from-pink-500 to-rose-500",
-    skills: [
-      { name: "LaTeX", level: 75, proficiency: "Intermediate" },
-      { name: "Lens Studio", level: 75, proficiency: "Intermediate" },
-      { name: "C", level: 70, proficiency: "Intermediate" },
-      { name: "C++", level: 70, proficiency: "Intermediate" },
-      { name: "XML", level: 70, proficiency: "Intermediate" },
-      { name: "AR Development", level: 70, proficiency: "Intermediate" },
+      { name: "Lens Studio (AR)", level: 85 },
+      { name: "Microcontrollers (Arduino)", level: 85 },
+      { name: "Embedded Systems & IoT", level: 80 },
+      { name: "Signal Processing", level: 75 },
+      { name: "C / C++", level: 75 },
+      { name: "AR Development", level: 70 },
     ],
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
-};
+const secondarySkills = [
+  "Git / GitHub", "VS Code", "Jupyter", "Google Colab", "PyCharm", 
+  "Streamlit", "Spyder", "Matplotlib", "Seaborn", "Excel", 
+  "Computer Vision", "phpMyAdmin", "XML", "LaTeX", "Figma", "Docker"
+];
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 },
-  },
-};
-
-const getProficiencyColor = (proficiency: string, theme: string) => {
-  if (proficiency === "Expert") {
-    return theme === "dark" ? "text-green-400" : "text-green-600";
-  } else if (proficiency === "Advanced") {
-    return theme === "dark" ? "text-blue-400" : "text-blue-600";
-  } else {
-    return theme === "dark" ? "text-yellow-400" : "text-yellow-600";
-  }
-};
-
-export default function Skills({ theme }: SkillsProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [displayedSkills, setDisplayedSkills] = useState<{ category: string; skills: Skill[]; icon: React.ElementType; gradient: string }[]>([]);
-
-  useEffect(() => {
-    if (selectedCategory === "All") {
-      setDisplayedSkills(
-        skillCategories.map(cat => ({
-          category: cat.name,
-          skills: cat.skills,
-          icon: cat.icon,
-          gradient: cat.gradient
-        }))
-      );
-    } else {
-      const category = skillCategories.find(
-        (cat) => cat.name === selectedCategory
-      );
-      setDisplayedSkills(category ? [{
-        category: category.name,
-        skills: category.skills,
-        icon: category.icon,
-        gradient: category.gradient
-      }] : []);
-    }
-  }, [selectedCategory]);
+export function SkillsSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <Card
-      className={`backdrop-blur-sm ${
-        theme === "dark"
-          ? "bg-[#161B22]/80 border-[#30363D] shadow-xl"
-          : "bg-white/80 border-[#E5E7EB] shadow-xl"
-      }`}
-    >
-      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-        <CardTitle className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-          <Star className="w-7 h-7 text-blue-500" />
-          <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 bg-clip-text text-transparent">
-            Technical Skills
-          </span>
-        </CardTitle>
-        <Select onValueChange={setSelectedCategory} defaultValue="All">
-          <SelectTrigger className="w-full sm:w-[200px] focus:ring-0 focus:ring-offset-0">
-            <SelectValue placeholder="Select category" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="All">All Categories</SelectItem>
-            {skillCategories.map((category, index) => (
-              <SelectItem key={index} value={category.name}>
-                {category.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedCategory}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="space-y-8"
-          >
-            {displayedSkills.map((category, catIndex) => {
-              const IconComponent = category.icon;
-              return (
-                <div key={catIndex} className="space-y-4">
-                  {/* Category Header */}
-                  <motion.div
-                    variants={itemVariants}
-                    className="flex items-center gap-3 mb-4"
-                  >
-                    <div className={`p-2 rounded-lg bg-gradient-to-r ${category.gradient}`}>
-                      <IconComponent className="w-5 h-5 text-white" />
-                    </div>
-                    <h3 className={`text-lg font-semibold ${
-                      theme === "dark" ? "text-white" : "text-gray-900"
-                    }`}>
-                      {category.category}
-                    </h3>
-                  </motion.div>
-
-                  {/* Skills Grid */}
-                  <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                    {category.skills.map((skill, index) => (
-                      <motion.div
-                        key={skill.name}
-                        variants={itemVariants}
-                        layout
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                        className={`p-5 rounded-xl border backdrop-blur-sm ${
-                          theme === "dark"
-                            ? "bg-gradient-to-br from-[#21262D]/60 to-[#1C2128]/60 border-[#30363D] hover:border-blue-500/50"
-                            : "bg-gradient-to-br from-white/60 to-gray-50/60 border-[#E5E7EB] hover:border-blue-400/50"
-                        } transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20`}
-                      >
-                        {/* Skill Header */}
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="flex-1">
-                            <div
-                              className={`text-base font-semibold mb-1 ${
-                                theme === "dark" ? "text-white" : "text-[#1F2937]"
-                              }`}
-                            >
-                              {skill.name}
-                            </div>
-                            <div className={`text-xs font-medium ${getProficiencyColor(skill.proficiency, theme)}`}>
-                              {skill.proficiency}
-                            </div>
-                          </div>
-                          <div className="text-sm font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                            {skill.level}%
-                          </div>
-                        </div>
-
-                        {/* Progress Bar */}
-                        <div className="relative pt-1">
-                          <div
-                            className={`overflow-hidden h-3 text-xs flex rounded-full ${
-                              theme === "dark" ? "bg-[#30363D]" : "bg-[#E5E7EB]"
-                            }`}
-                          >
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${skill.level}%` }}
-                              transition={{ duration: 1, ease: "easeOut", delay: catIndex * 0.1 + index * 0.05 }}
-                              className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r ${category.gradient} rounded-full relative overflow-hidden`}
-                            >
-                              <motion.div
-                                className="absolute inset-0 bg-white/30"
-                                animate={{
-                                  x: ["-100%", "100%"],
-                                }}
-                                transition={{
-                                  duration: 2,
-                                  repeat: Infinity,
-                                  ease: "linear",
-                                }}
-                                style={{ width: "50%" }}
-                              />
-                            </motion.div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Summary Stats */}
+    <section id="skills" ref={ref} className="py-24 md:py-32 px-6 bg-secondary/30 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className={`mt-8 p-6 rounded-xl border ${
-            theme === "dark"
-              ? "bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/30"
-              : "bg-gradient-to-r from-blue-50 to-purple-50 border-blue-300/30"
-          }`}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div>
-              <div className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                {skillCategories.length}
-              </div>
-              <div className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                Categories
-              </div>
-            </div>
-            <div>
-              <div className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                {skillCategories.reduce((acc, cat) => acc + cat.skills.length, 0)}
-              </div>
-              <div className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                Total Skills
-              </div>
-            </div>
-            <div>
-              <div className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                {skillCategories.reduce((acc, cat) => acc + cat.skills.filter(s => s.proficiency === "Expert").length, 0)}
-              </div>
-              <div className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                Expert Level
-              </div>
-            </div>
-            <div>
-              <div className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                 {skillCategories.reduce((acc, cat) => acc + cat.skills.filter(s => s.proficiency === "Advanced").length, 0)}
-              </div>
-              <div className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                Advanced
-              </div>
-            </div>
-          </div>
+          <h2 className="text-sm tracking-[0.2em] uppercase text-primary mb-4">Technical Arsenal</h2>
+          <p className="text-3xl md:text-4xl font-bold text-foreground">Expertise & Specializations</p>
         </motion.div>
-      </CardContent>
-    </Card>
+
+        {/* Main Skills Bento Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-20">
+          {skillCategories.map((category, categoryIndex) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+              className="p-8 rounded-3xl bg-card border border-border shadow-sm"
+            >
+              <h3 className="text-lg font-semibold text-foreground mb-6">{category.title}</h3>
+              <div className="space-y-5">
+                {category.skills.map((skill, skillIndex) => (
+                  <div key={skill.name}>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-foreground font-medium">{skill.name}</span>
+                      <span className="text-xs text-muted-foreground font-mono">{skill.level}%</span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={isInView ? { width: `${skill.level}%` } : {}}
+                        transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.1, ease: "easeOut" }}
+                        className="h-full rounded-full bg-gradient-to-r from-primary via-blue-400 to-cyan-400"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Marquee Section */}
+      <div className="relative flex flex-col items-center">
+        <h3 className="text-lg font-semibold text-foreground mb-8">Tools & Environments</h3>
+        
+        {/* Infinite Scroll Container */}
+        <div className="relative flex w-full max-w-[100vw] overflow-hidden py-4">
+          <motion.div
+            className="flex flex-none gap-4 pr-4"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ ease: "linear", duration: 25, repeat: Infinity }}
+          >
+            {/* Double the list to create seamless looping */}
+            {[...secondarySkills, ...secondarySkills].map((skill, idx) => (
+              <div
+                key={idx}
+                className="px-6 py-3 rounded-2xl bg-card border border-border text-sm text-muted-foreground whitespace-nowrap hover:border-primary/50 transition-colors"
+              >
+                {skill}
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Side Gradients for "Fade Out" effect */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-secondary/30 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-secondary/30 to-transparent z-10" />
+        </div>
+      </div>
+    </section>
   );
 }
