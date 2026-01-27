@@ -2,9 +2,10 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Camera, ExternalLink, Instagram } from "lucide-react";
+import { Camera, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image"; // 1. Import the Image component
 
 const selectedPhotos = [
   { id: "3", title: "Curious Muscovy Gaze", category: "Wildlife", imageUrl: "https://res.cloudinary.com/dlarshbqq/image/upload/v1766272695/IMG_0978_tztmsm.jpg" },
@@ -53,14 +54,17 @@ export function PhotographySection() {
               className="break-inside-avoid"
             >
               <div className="group relative overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm transition-all duration-500 hover:shadow-xl hover:shadow-primary/10">
-                <img
+                {/* 2. Optimized Image Component */}
+                <Image
                   src={photo.imageUrl}
                   alt={photo.title}
+                  width={800} // Base width for aspect ratio
+                  height={1200} // Base height for aspect ratio
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
+                  priority={index < 3} // Load first 3 images immediately
                 />
                 
-                {/* Subtle Overlay on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
                   <div>
                     <h3 className="text-white text-sm font-bold leading-tight">{photo.title}</h3>
@@ -72,7 +76,7 @@ export function PhotographySection() {
           ))}
         </div>
 
-        {/* Photography Details Footer */}
+        {/* ... (rest of the footer code remains the same) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}

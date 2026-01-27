@@ -2,9 +2,10 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import { Eye, Sparkles, ExternalLink, Ghost, Zap, ChevronLeft, ChevronRight } from "lucide-react";
+import { Eye, ExternalLink, Ghost, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 const snapchatFilters = [
   { id: "1", name: "low exposure sharp", views: "15B+", link: "https://www.snapchat.com/lens/f6476c9100404360912c2f50c76be9f6", codeImage: "https://app.snapchat.com/web/deeplink/snapcode?data=f6476c9100404360912c2f50c76be9f6&version=1&type=svg" },
@@ -61,12 +62,11 @@ const snapchatFilters = [
 
 export function SnapchatSection() {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Set to exactly 6
+  const itemsPerPage = 6;
   
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // Pagination Logic
   const totalPages = Math.ceil(snapchatFilters.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentFilters = snapchatFilters.slice(startIndex, startIndex + itemsPerPage);
@@ -84,7 +84,7 @@ export function SnapchatSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <h2 className="text-sm tracking-[0.2em] uppercase text-primary mb-4 text-yellow-500 font-bold">
+          <h2 className="text-sm tracking-[0.2em] uppercase text-yellow-500 font-bold mb-4">
             AR Portfolio
           </h2>
           <p className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -93,13 +93,13 @@ export function SnapchatSection() {
         </motion.div>
 
         {/* Paginated Grid */}
-        <div className="min-h-[800px]"> {/* Prevents layout shift when switching pages */}
+        <div className="min-h-[800px]">
           <motion.div 
             layout
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
           >
             <AnimatePresence mode="popLayout">
-              {currentFilters.map((filter) => (
+              {currentFilters.map((filter, index) => (
                 <motion.div
                   key={filter.id}
                   layout
@@ -110,13 +110,16 @@ export function SnapchatSection() {
                   className="group p-5 rounded-3xl bg-card border border-border hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl"
                 >
                   <div className="relative aspect-square mb-4 rounded-2xl overflow-hidden bg-slate-900 flex items-center justify-center p-6">
-                    <img 
+                    <Image 
                       src={filter.codeImage} 
                       alt={filter.name} 
-                      className="w-full h-full object-contain" 
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-contain p-6 transition-transform duration-500 group-hover:scale-110"
+                      priority={currentPage === 1 && index < 3}
                     />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <p className="text-white text-xs font-semibold border border-white/20 px-4 py-2 rounded-full backdrop-blur-md">
+                      <p className="z-10 text-white text-xs font-semibold border border-white/20 px-4 py-2 rounded-full backdrop-blur-md">
                         Scan Snapcode
                       </p>
                     </div>
