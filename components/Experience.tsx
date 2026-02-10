@@ -8,7 +8,7 @@ const experienceItems = [
   {
     title: "Graduate Research Assistant",
     company: "Florida Atlantic University",
-    period: "August 2024 - Present",
+    period: "August 2025 - Present",
     location: "Boca Raton, FL",
     type: "Academic Research",
     responsibilities: [
