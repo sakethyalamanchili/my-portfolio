@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 const contactInfo = [
   {
@@ -92,23 +93,19 @@ export function ContactSection() {
           <span>Delray Beach, Florida | Open to Remote & Relocation</span>
         </motion.div>
 
-        {/* Contact Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid sm:grid-cols-2 gap-4 mb-12"
-        >
-          {contactInfo.map((contact, index) => {
-            const IconComponent = contact.icon;
-            return (
-              <motion.div
-                key={contact.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-              >
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {/* Contact Cards */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="md:col-span-2 grid sm:grid-cols-2 gap-4"
+          >
+            {contactInfo.map((contact) => {
+              const IconComponent = contact.icon;
+              return (
                 <Link
+                  key={contact.label}
                   href={contact.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -121,16 +118,43 @@ export function ContactSection() {
                     <div className="text-sm text-muted-foreground">
                       {contact.label}
                     </div>
-                    <div className="text-foreground font-medium group-hover:text-primary transition-colors">
+                    <div className="text-foreground font-medium group-hover:text-primary transition-colors text-sm break-all">
                       {contact.value}
                     </div>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+              );
+            })}
+          </motion.div>
+
+          {/* HiHello QR Code Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-card border border-border p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:border-primary/30 transition-all duration-300"
+          >
+            <div className="mb-4 p-2 bg-white rounded-xl shadow-sm">
+              <Image
+                src="/hihello-qr.png"
+                alt="HiHello QR Code"
+                width={140}
+                height={140}
+                className="rounded-lg"
+              />
+            </div>
+            <div className="text-sm font-semibold text-foreground mb-1">
+              Scan to Connect
+            </div>
+            <Link
+              href="https://hihello.com/p/852a372b-690f-4f85-aed6-70fad63d1b0d"
+              target="_blank"
+              className="text-xs text-primary hover:underline flex items-center justify-center gap-1"
+            >
+              Digital Business Card <ExternalLink className="w-3 h-3" />
+            </Link>
+          </motion.div>
+        </div>
 
         {/* Quick Links */}
         <motion.div

@@ -24,7 +24,7 @@ const experienceItems = [
     title: "Software Developer Intern",
     company: "Levicent Software Technologies",
     period: "May 2024 - November 2024",
-    location: "Hyderabad, India",
+    location: "Tamil Nadu, India",
     type: "Software Engineering",
     responsibilities: [
       "Architected multi-language support for enterprise HMS & HRMS applications (+20% engagement)",
