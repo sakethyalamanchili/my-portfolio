@@ -47,7 +47,9 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    // Added pt-32 (padding-top) to ensure content clears the fixed navbar
+    // Added pb-16 to balance the spacing at the bottom
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-16">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/20" />

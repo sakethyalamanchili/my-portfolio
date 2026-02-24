@@ -67,7 +67,7 @@ export function Navbar() {
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
+          isScrolled || isMobileMenuOpen
             ? "glass border-b border-border/50"
             : "bg-transparent"
         }`}
@@ -136,30 +136,35 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-40 lg:hidden overflow-y-auto"
           >
+            {/* Solid background to prevent transparency issues */}
             <div
-              className="absolute inset-0 bg-background/80 backdrop-blur-xl"
+              className="absolute inset-0 bg-background"
               onClick={() => setIsMobileMenuOpen(false)}
             />
+            
             <motion.nav
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="relative pt-24 pb-8 px-6"
+              // Reduced top padding (pt-20) and side padding (px-4) for a tighter look
+              className="relative pt-20 pb-6 px-4 min-h-screen"
             >
-              <div className="flex flex-col gap-2">
+              {/* Reduced gap between items (gap-1) */}
+              <div className="flex flex-col gap-1">
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    transition={{ delay: index * 0.03 }}
                     onClick={() => scrollToSection(item.id)}
-                    className="px-4 py-3 text-lg font-medium text-foreground hover:bg-secondary/50 rounded-xl text-left transition-colors"
+                    // Smaller text (text-base), reduced padding (py-2), and rounded corners (rounded-md)
+                    className="px-4 py-2 text-base font-medium text-foreground hover:bg-secondary/80 rounded-md text-left transition-colors"
                   >
                     {item.label}
                   </motion.button>
